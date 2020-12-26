@@ -1,0 +1,5 @@
+.navbar-container {
+  padding: 15px 20px;
+  background: var(--main-bg);
+  border-bottom: 1px solid var(--red);
+}

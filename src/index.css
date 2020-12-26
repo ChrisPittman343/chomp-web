@@ -1,10 +1,46 @@
+:root {
+  --red: #db4437;
+  --dark-red: #c03d31;
+  --bright-red: #ff5444;
+  --yellow: #ffca28;
+  --dark-yellow: #f4b400;
+  --gold: #bf8c00;
+  --amber: #ffa000;
+  --orange: #f57c00;
+  --blue: #4285f4;
+  --green: #0f9d58;
+
+  --black: #000000;
+  --coal: #222222;
+  --dark-gray: #3b3b3b;
+  --light-coal: #575757;
+
+  --medium-gray: #a7a7a7;
+  --gray: #cacaca;
+  --light-gray: #e0e0e0;
+  --white: #ffffff;
+
+  --shadow-high: #0000009f;
+  --shadow-med: #0000006b;
+  --shadow-low: #00000046;
+
+  --main-bg: var(--white);
+  --main-hover: var(--light-gray);
+  --main-press: var(--medium-gray);
+  --main-color: var(--black);
+}
+
+* {
+  color: var(--main-color);
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 20px;
+  background: var(--main-bg);
 }
 
 code {
