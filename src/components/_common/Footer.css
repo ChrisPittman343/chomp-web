@@ -1,0 +1,37 @@
+.page-footer {
+  padding: 25px 15px;
+  background: var(--coal);
+}
+
+.page-footer * {
+  color: var(--light-gray);
+}
+
+.page-footer ul {
+  width: 1000px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.page-footer li {
+  text-align: center;
+  font-size: inherit;
+  width: 115px;
+}
+
+.page-footer a {
+  text-decoration: none;
+}
+
+.page-footer a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 1000px) {
+  .page-footer ul {
+    width: 80%;
+    row-gap: 20px;
+  }
+}
