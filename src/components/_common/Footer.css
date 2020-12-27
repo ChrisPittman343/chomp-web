@@ -1,6 +1,7 @@
 .page-footer {
   padding: 25px 15px;
   background: var(--coal);
+  border-top: 1px solid var(--black);
 }
 
 .page-footer * {

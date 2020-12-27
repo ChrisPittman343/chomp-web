@@ -1,0 +1,9 @@
+.text-btn {
+  padding: 7px;
+  text-align: center;
+}
+
+.text-btn:hover {
+  transition: color ease-in 0.15s;
+  color: var(--red);
+}

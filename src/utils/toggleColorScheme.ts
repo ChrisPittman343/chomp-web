@@ -1,7 +1,4 @@
-export function toggleDarkMode(
-  isCurrentlyDarkMode: Boolean,
-  setDarkTheme: React.Dispatch<React.SetStateAction<boolean>>
-) {
+export function toggleColorScheme(isCurrentlyDarkMode: Boolean) {
   let root = document.documentElement;
   if (isCurrentlyDarkMode) {
     root.style.setProperty("--main-bg", "var(--white)");
@@ -14,5 +11,4 @@ export function toggleDarkMode(
     root.style.setProperty("--main-press", "var(--light-coal)");
     root.style.setProperty("--main-color", "var(--white)");
   }
-  setDarkTheme(!isCurrentlyDarkMode);
 }

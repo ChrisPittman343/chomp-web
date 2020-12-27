@@ -1,5 +1,11 @@
-.navbar-container {
-  padding: 15px 20px;
+.navbar {
+  padding: 5px 10px;
   background: var(--main-bg);
-  border-bottom: 1px solid var(--red);
+  border-bottom: 1px solid var(--bright-red);
+}
+
+.navbar-vertical-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
