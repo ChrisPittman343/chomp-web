@@ -24,10 +24,10 @@
   --shadow-med: #0000006b;
   --shadow-low: #00000046;
 
-  --main-bg: var(--white);
-  --main-hover: var(--light-gray);
-  --main-press: var(--medium-gray);
-  --main-color: var(--black);
+  --main-bg: var(--coal);
+  --main-hover: var(--dark-gray);
+  --main-press: var(--light-coal);
+  --main-color: var(--white);
 }
 
 * {

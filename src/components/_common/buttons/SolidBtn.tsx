@@ -4,7 +4,7 @@ import "./SolidBtn.css";
 interface Props {
   children: any;
   filled?: boolean;
-  onClick: Function;
+  onClick?: Function;
   style?: CSSProperties;
 }
 
@@ -14,7 +14,9 @@ export const SolidBtn = (props: Props) => {
     <button
       className={`btn-reset normal-txt round ${filled}`}
       style={props.style}
-      onClick={(e) => props.onClick(e)}
+      onClick={(e) => {
+        if (props.onClick) props.onClick(e);
+      }}
     >
       {props.children}
     </button>

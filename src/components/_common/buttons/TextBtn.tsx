@@ -4,7 +4,7 @@ import "./TextBtn.css";
 interface Props {
   children: any;
   underline?: boolean;
-  onClick: Function;
+  onClick?: Function;
   style?: CSSProperties;
 }
 
@@ -14,7 +14,9 @@ export const TextBtn = (props: Props) => {
     <button
       className={`btn-reset ${underline} text-btn`}
       style={props.style}
-      onClick={(e) => props.onClick(e)}
+      onClick={(e) => {
+        if (props.onClick) props.onClick(e);
+      }}
     >
       {props.children}
     </button>

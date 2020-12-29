@@ -20,7 +20,7 @@ const firestore = firebase.firestore();
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   auth.getRedirectResult().then((result) => {
     if (result.user) {

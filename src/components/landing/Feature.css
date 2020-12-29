@@ -1,0 +1,20 @@
+.feature {
+  flex: 1;
+  margin: 15px;
+  padding: 40px 10px;
+  background: var(--dark-red);
+  max-width: 800px;
+}
+
+.feature-img {
+  margin: auto;
+  width: 192px;
+  height: 192px;
+  padding-bottom: 20px;
+}
+
+.feature-description {
+  margin: auto;
+  width: 90%;
+  line-height: 1.25;
+}
