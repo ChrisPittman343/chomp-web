@@ -3,14 +3,16 @@ import "./TextBtn.css";
 
 interface Props {
   children: any;
+  underline?: boolean;
   onClick: Function;
   style?: CSSProperties;
 }
 
 export const TextBtn = (props: Props) => {
+  const underline = props.underline ? "underline" : "";
   return (
     <button
-      className="btn-reset normal-txt text-btn"
+      className={`btn-reset ${underline} text-btn`}
       style={props.style}
       onClick={(e) => props.onClick(e)}
     >

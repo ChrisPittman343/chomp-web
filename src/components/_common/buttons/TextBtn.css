@@ -1,5 +1,6 @@
 .text-btn {
-  padding: 7px;
+  font-size: inherit;
+  padding: 4px 12px 7px 12px;
   text-align: center;
 }
 

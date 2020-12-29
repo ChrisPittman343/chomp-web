@@ -1,9 +1,23 @@
 .solid-btn {
-  padding: 7px;
+  font-size: inherit;
+  padding: 4px 12px 7px 12px;
   text-align: center;
+  background: none;
+  transition: background ease-in 0.15s;
 }
 
 .solid-btn:hover {
-  transition: color ease-in 0.15s;
-  color: var(--red);
+  background: var(--bright-red);
+}
+
+.filled-solid-btn {
+  font-size: inherit;
+  padding: 4px 6px 7px 5px;
+  text-align: center;
+  background: var(--bright-red);
+  transition: background ease-in 0.15s;
+}
+
+.filled-solid-btn:hover {
+  background: var(--red);
 }

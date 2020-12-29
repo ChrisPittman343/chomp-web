@@ -7,3 +7,9 @@ export const firebaseConfig = {
   appId: "1:152270180248:web:8fabe2a0732cbd0034a5ed",
   measurementId: "G-EPGCLRVK5Q",
 };
+
+const isServedLocally = true;
+
+export const BASE_URL = isServedLocally
+  ? "http://localhost:5000/chomp-chat/us-central1/widgets"
+  : "https://us-central1-chomp-chat.cloudfunctions.net/widgets";

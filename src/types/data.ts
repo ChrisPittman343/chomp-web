@@ -1,9 +1,9 @@
-export interface CourseInfo {
+export interface HTTPSCourseInfo {
   name: string;
   section: string;
   description: string;
   link: string;
-  roster: Roster;
+  roster?: Roster;
 }
 
 export interface UserInfo {
@@ -13,7 +13,7 @@ export interface UserInfo {
     fullName: string;
   };
   email: string;
-  photoURL: string;
+  photoUrl: string;
 }
 
 export interface Roster {
