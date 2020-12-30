@@ -23,19 +23,22 @@
 .sub-tagline {
   font-weight: 500;
   padding: 50px 0;
-  font-size: 50px;
+  font-size: 55px;
 }
 
 .landing-description {
+  line-height: 1.25;
 }
 
 .features {
-  margin: 0 auto;
+  margin: auto;
   padding: 50px 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  column-gap: 10px;
+  row-gap: 10px;
 }
 
 .get-started {
@@ -43,17 +46,17 @@
 
 @media screen and (max-width: 800px) {
   .main-tagline {
-    font-size: 50px;
+    font-size: 45px;
   }
 
   .sub-tagline {
     padding: 50px 0;
-    font-size: 30px;
+    font-size: 35px;
   }
 }
 
-.dark-mode-btn {
-  position: fixed;
-  right: 5px;
-  top: 5px;
+@media screen and (max-width: 1000px) {
+  .features {
+    flex-direction: column;
+  }
 }

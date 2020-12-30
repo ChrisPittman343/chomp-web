@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const BasicAuthRoute = (props: Props) => {
-  const { user, loading, error } = useContext(UserContext)!;
+  const { user, loading, error } = useContext(UserContext);
   let content;
   if (loading) {
     content = (

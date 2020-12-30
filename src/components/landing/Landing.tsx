@@ -18,18 +18,12 @@ export const Landing = (props: Props) => {
   if (!darkModeCtx.darkMode) darkModeCtx.toggleDarkMode();
   return (
     <div className="landing-page">
-      <div className="dark-mode-btn">
-        <TextBtn onClick={() => darkModeCtx.toggleDarkMode()}>
-          Toggle Theme
-        </TextBtn>
-      </div>
-
       <div className="hero">
         <img src={hero_dark} alt="Chomp" width="100%" />
       </div>
       <div className="landing-content">
-        <div className="main-tagline">Every student has questions.</div>
-        <div className="sub-tagline">So ask them!</div>
+        <div className="main-tagline">Got a question?</div>
+        <div className="sub-tagline">Ask it!</div>
         <div className="landing-description">
           Chomp makes it easy for students to ask and answer each others'
           questions.
@@ -48,7 +42,7 @@ export const Landing = (props: Props) => {
             image={participation_feature}
             alt="Raised Hand"
           >
-            Collect participation data for each class as a whole.
+            Collect participation data for a class
           </Feature>
           <Feature
             title="Optional Anonymity"

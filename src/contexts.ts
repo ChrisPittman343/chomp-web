@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import firebase from "firebase";
+import { Class } from "./types/firestoreTypes";
 
 interface UserContextValue {
   user: firebase.User | null;
@@ -12,5 +13,14 @@ interface DarkModeContextValue {
   toggleDarkMode: Function;
 }
 
-export const DarkModeContext = createContext<DarkModeContextValue | null>(null);
-export const UserContext = createContext<UserContextValue | null>(null);
+interface ClassesContextValue {
+  classes: Class[];
+  setClasses: Function;
+}
+
+//@ts-ignore
+export const DarkModeContext = createContext<DarkModeContextValue>(null);
+//@ts-ignore
+export const UserContext = createContext<UserContextValue>(null);
+//@ts-ignore
+export const ClassesContext = createContext<ClassesContextValue>([]);

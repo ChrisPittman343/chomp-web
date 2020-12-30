@@ -1,20 +1,31 @@
 .feature {
   flex: 1;
-  margin: 15px;
-  padding: 40px 10px;
+  padding: 20px 10px;
   background: var(--dark-red);
-  max-width: 800px;
+  max-width: 700px;
 }
 
 .feature-img {
   margin: auto;
   width: 192px;
   height: 192px;
-  padding-bottom: 20px;
 }
 
 .feature-description {
+  max-width: 500px;
   margin: auto;
-  width: 90%;
+  padding: 10px 30px;
   line-height: 1.25;
+}
+
+@media screen and (max-width: 800px) {
+  .feature-img {
+    width: 128px;
+    height: 128px;
+  }
+  .feature-description {
+    margin: auto;
+    padding: 10px 30px;
+    font-size: 22px;
+  }
 }

@@ -16,7 +16,7 @@ export const Feature = (props: Props) => {
         <span className="bold">{props.title}</span>
         <br />
         <br />
-        {props.children}
+        <span className="">{props.children}</span>
       </div>
     </div>
   );

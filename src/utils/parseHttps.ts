@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { HTTPSCourseInfo, Roster, UserInfo } from "../types/data";
+import { HTTPSCourseInfo, Roster, UserInfo } from "../types/httpsTypes";
 
 export function parseCourseInfo(res: AxiosResponse<any>): HTTPSCourseInfo[] {
   const courses: HTTPSCourseInfo[] = [];

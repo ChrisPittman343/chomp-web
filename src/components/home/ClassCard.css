@@ -1,0 +1,51 @@
+.class-card-display {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 40px;
+}
+
+.class-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  height: 250px;
+  border-radius: 20px;
+  border: 1px solid var(--red);
+  background: var(--red);
+}
+
+.card-head {
+  padding: 8px;
+  border-radius: 20px 20px 0 0;
+  color: var(--white);
+  height: fit-content;
+}
+
+.card-head * {
+  color: var(--white);
+}
+
+.card-head:hover {
+  cursor: pointer;
+}
+
+.card-title {
+  font-size: 28px;
+  font-weight: 600;
+  padding-bottom: 5px;
+}
+
+.card-head:hover > .card-title {
+  text-decoration: underline;
+}
+
+.card-section {
+}
+
+.card-body {
+  height: 100%;
+  background: var(--main-bg);
+  border-radius: 0 0 20px 20px;
+}
