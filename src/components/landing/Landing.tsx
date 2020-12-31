@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { SolidBtn } from "../_common/buttons/SolidBtn";
 import hero_dark from "../../images/hero_dark.svg";
 import "./Landing.css";
-import { TextBtn } from "../_common/buttons/TextBtn";
 import { DarkModeContext } from "../../contexts";
 import { Footer } from "../_common/Footer";
 import { Feature } from "./Feature";
@@ -64,7 +63,7 @@ export const Landing = (props: Props) => {
           dashboard:
           <br />
           <br />
-          <Link to="/home">
+          <Link to="/classes">
             <SolidBtn filled>Get Started</SolidBtn>
           </Link>
         </div>

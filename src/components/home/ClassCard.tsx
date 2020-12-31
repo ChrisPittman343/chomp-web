@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Class } from "../../types/firestoreTypes";
 import "./ClassCard.css";
 
@@ -7,18 +8,21 @@ interface Props {
 }
 
 export const ClassCard = (props: Props) => {
-  const { name, section, description, role } = props.classInfo;
+  const { name, section, description, role, id } = props.classInfo;
   return (
-    <div className="class-card">
-      <div className="card-head">
-        <div className="card-title">{name}</div>
-        <div className="card-section">{section}</div>
+    <Link to={`/classes/c/${id}`}>
+      <div className="class-card">
+        <div className="card-head">
+          <div className="card-title">{name}</div>
+          <div className="card-section">{section}</div>
+        </div>
+
+        <div className="card-body">
+          {description}
+          <br />
+          {role}
+        </div>
       </div>
-      <div className="card-body">
-        {description}
-        <br />
-        {role}
-      </div>
-    </div>
+    </Link>
   );
 };

@@ -11,6 +11,9 @@ import { toggleColorScheme } from "./utils/toggleColorScheme";
 import { Landing } from "./components/landing/Landing";
 import { Home } from "./components/home/Home";
 import { BasicAuthRoute } from "./components/_common/routes/BasicAuthRoute";
+import { ClassAuthRoute } from "./components/_common/routes/ClassAuthRoute";
+import { ChompClass } from "./components/class/ChompClass";
+import { CreateClass } from "./components/createClass/CreateClass";
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -50,9 +53,18 @@ function App() {
               <Route exact path="/" children={<Landing />} />
               <ClassesContext.Provider value={{ classes, setClasses }}>
                 <BasicAuthRoute
-                  path="/home"
+                  path="/classes"
                   children={<Home user={user} />}
                   routeProps={{ exact: true }}
+                />
+                <BasicAuthRoute
+                  path="/classes/create-class"
+                  children={<CreateClass />}
+                  routeProps={{ exact: true }}
+                />
+                <ClassAuthRoute
+                  path="/classes/c/:classId"
+                  children={<ChompClass />}
                 />
               </ClassesContext.Provider>
             </Switch>

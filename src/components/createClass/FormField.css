@@ -1,0 +1,39 @@
+.form-field {
+  padding: 20px;
+}
+
+.form-field-label {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--main-press);
+  transition: color ease-in 0.15s;
+}
+
+.form-field-label:not(.empty-field) > .required {
+  color: var(--main-press);
+}
+
+.required {
+  transition: color ease-in 0.15s;
+  color: var(--amber);
+  font-size: 25px;
+}
+
+.empty-field {
+  color: var(--main-color);
+}
+
+.form-field-input {
+  resize: none;
+  background: transparent;
+  width: 100%;
+  outline: 0;
+  border: none;
+  border-bottom: 1px solid var(--dark-red);
+  font-size: 25px;
+  transition: border-color ease-in 0.15s;
+}
+
+.form-field-input:focus {
+  border-color: var(--bright-red);
+}

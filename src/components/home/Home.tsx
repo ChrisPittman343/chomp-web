@@ -4,7 +4,6 @@ import "./Home.css";
 import { HomeNavbar } from "./HomeNavbar";
 import { ClassesContext } from "../../contexts";
 import { ClassCard } from "./ClassCard";
-import { Footer } from "../_common/Footer";
 
 interface Props {
   user: firebase.User;
@@ -15,6 +14,7 @@ export const Home = (props: Props) => {
   const classesCtx = useContext(ClassesContext);
 
   useEffect(() => {
+    window.scroll({ top: 0 });
     firebase
       .firestore()
       .collection("users")
@@ -27,17 +27,27 @@ export const Home = (props: Props) => {
       .catch((err) => console.log(err));
   }, [user]);
 
+  const createClass = async () => {};
+
   return (
     <div className="home-page">
-      <HomeNavbar />
+      <HomeNavbar createClass={() => createClass()} />
+
       <div className="home-body">
         <div className="class-card-display">
           {classesCtx.classes.map((c) => {
-            return <ClassCard classInfo={c} />;
+            return (
+              <>
+                <ClassCard classInfo={c} />
+                <ClassCard classInfo={c} />
+                <ClassCard classInfo={c} />
+                <ClassCard classInfo={c} />
+                <ClassCard classInfo={c} />
+              </>
+            );
           })}
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

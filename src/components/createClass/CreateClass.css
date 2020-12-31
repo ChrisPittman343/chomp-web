@@ -1,0 +1,53 @@
+.create-class-page {
+  padding: 30px;
+}
+
+.create-form-wrapper {
+  margin: auto;
+  border: 2px solid var(--red);
+  border-radius: 30px;
+  background: var(--main-bg);
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  width: 100%;
+}
+
+.create-title {
+  font-size: 45px;
+  font-weight: 700;
+  color: var(--main-color);
+  padding: 10px 0;
+}
+
+.form-buffer {
+  width: 100%;
+  margin: 70px 0;
+  border-bottom: 1px solid var(--main-hover);
+}
+
+.submission-btns {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  align-content: right;
+  column-gap: 20px;
+}
+
+.form-btn {
+  background: transparent;
+  outline: 0;
+  border: 0;
+  background: var(--red);
+  border-radius: 5px;
+  padding: 12px;
+  font-weight: 600;
+  font-size: 20px;
+}

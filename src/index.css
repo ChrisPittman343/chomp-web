@@ -40,6 +40,10 @@ html {
   background: var(--main-bg);
 }
 
+a:-webkit-any-link {
+  text-decoration: none;
+}
+
 button {
   border: none;
   cursor: pointer;

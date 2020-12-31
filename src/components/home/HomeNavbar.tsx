@@ -7,7 +7,9 @@ import { ChompTitle } from "../_common/ChompTitle";
 import { NavbarContainer } from "../_common/NavbarContainer";
 import "./HomeNavbar.css";
 
-interface Props {}
+interface Props {
+  createClass: Function;
+}
 
 export const HomeNavbar = (props: Props) => {
   const darkModeCtx = useContext(DarkModeContext);
@@ -24,6 +26,9 @@ export const HomeNavbar = (props: Props) => {
       </Link>
       <Link to="/">
         <SolidBtn>Landing</SolidBtn>
+      </Link>
+      <Link to="/classes/create-class">
+        <SolidBtn>Create Class</SolidBtn>
       </Link>
     </NavbarContainer>
   );
