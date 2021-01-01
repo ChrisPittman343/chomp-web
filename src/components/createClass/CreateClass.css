@@ -34,11 +34,12 @@
 }
 
 .submission-btns {
+  padding-top: 20px;
   display: flex;
   flex-direction: row-reverse;
   flex-wrap: wrap;
   align-content: right;
-  column-gap: 20px;
+  column-gap: 30px;
 }
 
 .form-btn {

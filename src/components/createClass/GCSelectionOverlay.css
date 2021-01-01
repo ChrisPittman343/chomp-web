@@ -1,0 +1,44 @@
+.selection-overlay {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: var(--shadow-med);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.selection-box {
+  padding: 30px 0;
+  border-radius: 20px;
+  border: 1px solid var(--red);
+  background: var(--main-bg);
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.box-title {
+  margin: auto;
+  font-weight: 500;
+  padding-bottom: 20px;
+}
+
+.overlay-btn {
+  width: 100%;
+  font-size: 23px;
+  padding: 10px 15px;
+  padding-bottom: 12px;
+  font-weight: 400;
+  transition: background ease-in 0.1s;
+}
+
+.overlay-btn:hover {
+  background: var(--main-hover);
+}

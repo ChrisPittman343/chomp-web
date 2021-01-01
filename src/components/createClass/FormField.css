@@ -29,7 +29,7 @@
   width: 100%;
   outline: 0;
   border: none;
-  border-bottom: 1px solid var(--dark-red);
+  border-bottom: 2px solid var(--dark-red);
   font-size: 25px;
   transition: border-color ease-in 0.15s;
 }

@@ -14,6 +14,7 @@ import { BasicAuthRoute } from "./components/_common/routes/BasicAuthRoute";
 import { ClassAuthRoute } from "./components/_common/routes/ClassAuthRoute";
 import { ChompClass } from "./components/class/ChompClass";
 import { CreateClass } from "./components/createClass/CreateClass";
+import { SolidBtn } from "./components/_common/buttons/SolidBtn";
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -22,22 +23,6 @@ function App() {
   const [user, loading, error] = useAuthState(auth);
   const [darkMode, setDarkMode] = useState(true);
   const [classes, setClasses] = useState([]);
-
-  // auth.getRedirectResult().then((result) => {
-  //   if (result.user) {
-  //     //@ts-ignore
-  //     const accessToken: string = result.credential.accessToken;
-  //     const refreshToken: string = result.user.refreshToken;
-  //     axios
-  //       .post(`${BASE_URL}/get-classes`, undefined, {
-  //         headers: { Authorization: `Bearer ${accessToken} ${refreshToken}` },
-  //       })
-  //       .then((value) => {
-  //         console.log(parseCourseInfo(value.data.courses));
-  //         console.log(value.data.students);
-  //       });
-  //   }
-  // });
 
   const toggleDarkMode = () => {
     toggleColorScheme(darkMode);
@@ -49,6 +34,12 @@ function App() {
       <UserContext.Provider value={{ user, loading, error }}>
         <Router>
           <div className="App">
+            <SolidBtn
+              onClick={() => auth.signOut()}
+              style={{ position: "absolute", top: 10, right: 10 }}
+            >
+              Sign Out
+            </SolidBtn>
             <Switch>
               <Route exact path="/" children={<Landing />} />
               <ClassesContext.Provider value={{ classes, setClasses }}>
@@ -59,7 +50,7 @@ function App() {
                 />
                 <BasicAuthRoute
                   path="/classes/create-class"
-                  children={<CreateClass />}
+                  children={<CreateClass user={user} />}
                   routeProps={{ exact: true }}
                 />
                 <ClassAuthRoute
