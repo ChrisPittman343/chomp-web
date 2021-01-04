@@ -1,1 +1,4 @@
-export interface Error {}
+export interface FirebaseError {
+  message: string;
+  status: string;
+}

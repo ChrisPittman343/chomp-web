@@ -5,7 +5,7 @@ import { TextBtn } from "../_common/buttons/TextBtn";
 import "./CreateClass.css";
 import { FormField } from "./FormField";
 import { StudentsTable } from "./StudentsTable";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import { signInWithGoogle } from "../../utils/signInWithGoogle";
 import { HTTPSCourseInfo } from "../../types/httpsTypes";
 import { GCSelectionOverlay } from "./GCSelectionOverlay";
@@ -24,7 +24,10 @@ export const CreateClass = (props: Props) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(name, section, description, participants);
+    const createClass = firebase.functions().httpsCallable("createClass");
+    createClass({ name, section, description, participants }).then((result) => {
+      console.log(result);
+    });
   };
 
   const openOverlay = async (e: any) => {

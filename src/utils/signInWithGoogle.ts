@@ -1,4 +1,5 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 /**
  * Redirects to the Google sign in page.
@@ -14,5 +15,11 @@ export async function signInWithGoogle() {
   );
   provider.addScope("https://www.googleapis.com/auth/classroom.profile.emails");
   provider.addScope("https://www.googleapis.com/auth/classroom.profile.photos");
-  await firebase.auth().signInWithRedirect(provider);
+  return firebase
+    .auth()
+    .signInWithRedirect(provider)
+    .then((res) => res)
+    .catch((err) => {
+      throw new Error(err);
+    });
 }

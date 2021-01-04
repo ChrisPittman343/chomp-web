@@ -33,9 +33,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="122.77195"
-     inkscape:cy="89.249552"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="129.70488"
+     inkscape:cy="70.984092"
      inkscape:document-units="px"
      inkscape:current-layer="g918"
      inkscape:document-rotation="0"
@@ -60,7 +60,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -72,96 +72,48 @@
        id="g918"
        transform="matrix(1.0460025,0,0,1.0460025,-12.74072,-9.4514556)">
       <g
-         id="g3305"
-         transform="translate(0,-3.5412153)">
+         id="g1041"
+         transform="translate(-0.33878372,-0.37895407)">
         <rect
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.26472;stroke-linecap:round;stroke-linejoin:round"
-           id="rect3259-2"
-           width="0.98372108"
-           height="15.202963"
-           x="26.011141"
-           y="30.519249"
-           ry="0.43816468" />
-        <ellipse
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.26472;stroke-linecap:round;stroke-linejoin:round"
-           id="path3261-9"
-           cx="26.637144"
-           cy="25.198212"
-           rx="1.4308671"
-           ry="3.3983092" />
+           style="fill:#000000;fill-opacity:1;stroke-width:0.602666;stroke-linecap:square"
+           id="rect855"
+           width="3.2759635"
+           height="12.226363"
+           x="13.939774"
+           y="19.99387"
+           ry="0" />
         <rect
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.26472;stroke-linecap:round;stroke-linejoin:round"
-           id="rect3300"
-           width="0.98372108"
-           height="15.202963"
-           x="26.011141"
-           y="30.519249"
-           ry="0.43816468" />
-      </g>
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:10.1178px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.252944"
-         x="11.358324"
-         y="6.0004592"
-         id="text3255"><tspan
-           sodipodi:role="line"
-           id="tspan3253"
-           x="11.358324"
-           y="6.0004592"
-           style="stroke-width:0.252944">Can't have person, must be same as classroom</tspan></text>
-      <g
-         id="g3313"
-         transform="matrix(0.83285694,0.22316334,-0.22316334,0.83285694,3.056112,-6.5914327)">
+           style="fill:#000000;fill-opacity:1;stroke-width:0.795988;stroke-linecap:square"
+           id="rect865"
+           width="3.2759635"
+           height="21.328365"
+           x="18.481138"
+           y="10.891867"
+           ry="0" />
         <rect
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.26472;stroke-linecap:round;stroke-linejoin:round"
-           id="rect3307"
-           width="0.98372108"
-           height="15.202963"
-           x="26.011141"
-           y="30.519249"
-           ry="0.43816468" />
-        <ellipse
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.26472;stroke-linecap:round;stroke-linejoin:round"
-           id="ellipse3309"
-           cx="26.637144"
-           cy="25.198212"
-           rx="1.4308671"
-           ry="3.3983092" />
+           style="fill:#000000;fill-opacity:1;stroke-width:0.658556;stroke-linecap:square"
+           id="rect867"
+           width="3.2759635"
+           height="14.599188"
+           x="23.022503"
+           y="17.621046"
+           ry="0" />
         <rect
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.26472;stroke-linecap:round;stroke-linejoin:round"
-           id="rect3311"
-           width="0.98372108"
-           height="15.202963"
-           x="26.011141"
-           y="30.519249"
-           ry="0.43816468" />
-      </g>
-      <g
-         id="g3321"
-         transform="matrix(0.84363796,-0.17812231,0.17812231,0.84363796,5.1105265,6.3748676)">
+           style="fill:#000000;fill-opacity:1;stroke-width:0.552426;stroke-linecap:square"
+           id="rect871"
+           width="3.2759635"
+           height="10.272886"
+           x="27.563866"
+           y="21.947346"
+           ry="0" />
         <rect
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.26472;stroke-linecap:round;stroke-linejoin:round"
-           id="rect3315"
-           width="0.98372108"
-           height="15.202963"
-           x="26.011141"
-           y="30.519249"
-           ry="0.43816468" />
-        <ellipse
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.26472;stroke-linecap:round;stroke-linejoin:round"
-           id="ellipse3317"
-           cx="26.637144"
-           cy="25.198212"
-           rx="1.4308671"
-           ry="3.3983092" />
-        <rect
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.26472;stroke-linecap:round;stroke-linejoin:round"
-           id="rect3319"
-           width="0.98372108"
-           height="15.202963"
-           x="26.011141"
-           y="30.519249"
-           ry="0.43816468" />
+           style="fill:#000000;fill-opacity:1;stroke-width:0.658556;stroke-linecap:square"
+           id="rect921"
+           width="3.2759635"
+           height="14.599188"
+           x="32.105232"
+           y="17.621046"
+           ry="0" />
       </g>
     </g>
   </g>

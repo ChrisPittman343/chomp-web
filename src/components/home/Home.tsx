@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import firebase from "firebase";
 import "./Home.css";
 import { HomeNavbar } from "./HomeNavbar";
@@ -18,11 +18,10 @@ export const Home = (props: Props) => {
     firebase
       .firestore()
       .collection("users")
-      .where("uid", "==", user.uid)
+      .where("email", "==", user.email)
       .get()
       .then((value) => {
         classesCtx.setClasses(value.docs[0].data().classes);
-        console.log(value.docs[0].data().classes);
       })
       .catch((err) => console.log(err));
   }, [user]);
@@ -38,10 +37,6 @@ export const Home = (props: Props) => {
           {classesCtx.classes.map((c) => {
             return (
               <>
-                <ClassCard classInfo={c} />
-                <ClassCard classInfo={c} />
-                <ClassCard classInfo={c} />
-                <ClassCard classInfo={c} />
                 <ClassCard classInfo={c} />
               </>
             );

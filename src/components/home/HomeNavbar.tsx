@@ -15,13 +15,7 @@ export const HomeNavbar = (props: Props) => {
   const darkModeCtx = useContext(DarkModeContext);
   return (
     <NavbarContainer>
-      <TextBtn
-        onClick={() => darkModeCtx.toggleDarkMode()}
-        style={{ position: "fixed", right: 5, top: 5 }}
-      >
-        Toggle Theme
-      </TextBtn>
-      <Link to="/home">
+      <Link to="/classes">
         <ChompTitle />
       </Link>
       <Link to="/">

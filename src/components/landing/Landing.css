@@ -42,6 +42,7 @@
 }
 
 .get-started {
+  line-height: 1.25;
 }
 
 @media screen and (max-width: 800px) {

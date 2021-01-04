@@ -41,7 +41,7 @@ export const Landing = (props: Props) => {
             image={participation_feature}
             alt="Raised Hand"
           >
-            Collect participation data for a class
+            Collect participation data for a class automatically.
           </Feature>
           <Feature
             title="Optional Anonymity"
@@ -59,7 +59,7 @@ export const Landing = (props: Props) => {
           <span className="bold big-txt">Interested?</span>
           <br />
           <br />
-          Integrate it into your classroom in minutes by heading to your Chomp
+          Integrate Chomp into your classroom in minutes by heading to your
           dashboard:
           <br />
           <br />

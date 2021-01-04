@@ -58,16 +58,15 @@ export const GCSelectionOverlay = (props: Props) => {
       {courseData.length !== 0 ? (
         <div className="selection-box">
           <span className="med-txt box-title">Active Classes</span>
-          {courseData.map((course) => {
+          {courseData.map((course, ix) => {
             return (
-              <>
-                <button
-                  className="btn-reset overlay-btn"
-                  onClick={(e) => selectClass(e, course)}
-                >
-                  {course.course.name} - {course.roster.length} People
-                </button>
-              </>
+              <button
+                className="btn-reset overlay-btn"
+                onClick={(e) => selectClass(e, course)}
+                key={ix}
+              >
+                {course.course.name} - {course.roster.length} People
+              </button>
             );
           })}
         </div>
