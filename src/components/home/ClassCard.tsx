@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const ClassCard = (props: Props) => {
-  const { name, section, description, role, id } = props.classInfo;
+  const { name, section, description, id } = props.classInfo;
   return (
     <Link to={`/classes/c/${id}`}>
       <div className="class-card">
@@ -17,11 +17,7 @@ export const ClassCard = (props: Props) => {
           <div className="card-section">{section}</div>
         </div>
 
-        <div className="card-body">
-          {description}
-          <br />
-          {role}
-        </div>
+        <div className="card-body">{description}</div>
       </div>
     </Link>
   );

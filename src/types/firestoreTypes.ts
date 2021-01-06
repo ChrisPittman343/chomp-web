@@ -1,20 +1,25 @@
 export interface Class {
   id: string;
+  threadIds?: string[];
   name: string;
   section: string;
   description: string;
-  role: string;
-  channels?: Channel[];
 }
-export interface Channel {
+export interface Thread {
   id: string;
-  name: string;
-  messages?: Message[];
+  classId: string;
+  email: string;
+  message: string;
+  created: string;
+  replyIds?: string[];
 }
 
 export interface Message {
-  photoUrl: string;
+  id: string;
+  threadId: string;
   email: string;
   message: string;
   replies?: Message[];
 }
+
+export interface Roster {}

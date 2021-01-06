@@ -4,6 +4,7 @@ import "./Home.css";
 import { HomeNavbar } from "./HomeNavbar";
 import { ClassesContext } from "../../contexts";
 import { ClassCard } from "./ClassCard";
+import { fetchClasses } from "../../utils/fetchFromFirestore";
 
 interface Props {
   user: firebase.User;
@@ -15,13 +16,9 @@ export const Home = (props: Props) => {
 
   useEffect(() => {
     window.scroll({ top: 0 });
-    firebase
-      .firestore()
-      .collection("users")
-      .where("email", "==", user.email)
-      .get()
+    fetchClasses(user)
       .then((value) => {
-        classesCtx.setClasses(value.docs[0].data().classes);
+        classesCtx.setClasses(value);
       })
       .catch((err) => console.log(err));
   }, [user]);
@@ -35,11 +32,7 @@ export const Home = (props: Props) => {
       <div className="home-body">
         <div className="class-card-display">
           {classesCtx.classes.map((c) => {
-            return (
-              <>
-                <ClassCard classInfo={c} />
-              </>
-            );
+            return <ClassCard classInfo={c} />;
           })}
         </div>
       </div>

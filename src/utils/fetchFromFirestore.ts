@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
-import { Channel, Class, Message } from "../types/firestoreTypes";
+import { Thread, Class } from "../types/firestoreTypes";
 
 /**
  * Returns basic info for all of a user's classes (From their profile).
@@ -15,7 +15,12 @@ export async function fetchClasses(user: firebase.User) {
     .collection("users")
     .where("email", "==", user.email)
     .get()
-    .then((res) => (res.docs as unknown) as Class[])
+    .then((res) => {
+      if (res.empty) return [];
+      return res.docs[0] //First doc is the users data
+        .data()
+        .classes.map((d: unknown) => (d as unknown) as Class);
+    })
     .catch((err) => {
       throw err;
     });
@@ -24,53 +29,32 @@ export async function fetchClasses(user: firebase.User) {
 /**
  * Returns starting data when loading up a new class. (When you click on a class card)
  *
- * This includes basic Channel data for a class, as well
- * as recent messages from the most popular channel (Paginate when needed).
+ * This includes a few of the most recent threads (Sorted by creation date).
  *
- * Channels are sorted by creation date.
- * @returns array of type Channel, with the most popular channel having messages in it
+ * @returns array of type Thread (No replies inside, loaded on request)
  */
-export async function fetchInitialClassData(classId: string) {
+export async function fetchClass(classId: string) {
   const db = firebase.firestore();
-  const channelDocs = await db
+  const threadDocs = await db
     .collection("classes")
     .doc(classId)
-    .collection("channels")
-    .orderBy("stats.total", "desc")
+    .collection("threads")
+    .orderBy("created", "desc")
+    .limit(10)
     .get()
     .then((res) => {
-      if (res.empty) throw new Error("No channels in class");
+      if (res.empty) return [];
       else return res.docs;
     })
     .catch((err) => {
       throw err;
     });
-  const popularChannelRef = channelDocs[0];
-  const channels = channelDocs.map((doc) => (doc.data() as unknown) as Channel);
-  const messageDocs = await db
-    .collection("classes")
-    .doc(classId)
-    .collection("channels")
-    .doc(popularChannelRef.id)
-    .collection("messages")
-    .orderBy("sent", "desc")
-    .limit(5)
-    .get()
-    .then((res) => {
-      if (res.empty) return [];
-      return res.docs;
-    })
-    .catch((err) => {
-      throw err;
-    });
-  const messages = messageDocs.map((doc) => (doc.data() as unknown) as Message);
-  channels[0].messages = messages;
-  console.log(channels);
-  return channels;
+  const threads = threadDocs.map((doc) => (doc.data() as unknown) as Thread);
+  return threads;
 }
 
 /**
- * Returns basic info for all channels in one class
- * @returns an array of basic channel info for a class
+ * Returns a few replies in a thread (Paginate when necessary).
+ * @returns a Thread object
  */
-export async function fetchChannels(classId: string) {}
+export async function fetchThread(classId: string, threadId: string) {}

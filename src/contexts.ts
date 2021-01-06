@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import firebase from "firebase";
-import { Channel, Class, Message } from "./types/firestoreTypes";
+import { Class } from "./types/firestoreTypes";
 
 interface UserContextValue {
   user: firebase.User | null;
@@ -16,12 +16,6 @@ interface DarkModeContextValue {
 interface ClassesContextValue {
   classes: Class[];
   setClasses: Function;
-  setChannels: (classId: string, channels: Channel[]) => void;
-  setMessages: (
-    classId: string,
-    channelId: string,
-    channels: Message[]
-  ) => void;
 }
 
 //@ts-ignore

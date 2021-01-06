@@ -16,7 +16,7 @@ import { ClassAuthRoute } from "./components/_common/routes/ClassAuthRoute";
 import { ChompClass } from "./components/class/ChompClass";
 import { CreateClass } from "./components/createClass/CreateClass";
 import { SolidBtn } from "./components/_common/buttons/SolidBtn";
-import { Channel, Class, Message } from "./types/firestoreTypes";
+import { Class } from "./types/firestoreTypes";
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -31,41 +31,6 @@ function App() {
   const toggleDarkMode = () => {
     toggleColorScheme(darkMode);
     setDarkMode(!darkMode);
-  };
-
-  const setChannels = (classId: string, channels: Channel[]) => {
-    const newData = classes;
-    const cIx = newData.findIndex((c) => c.id === classId);
-    if (newData[cIx].channels) {
-      newData[cIx].channels = [...channels, ...newData[cIx].channels!];
-    } else {
-      newData[cIx].channels = [...channels];
-    }
-
-    setClasses([...newData]);
-  };
-
-  const setMessages = (
-    classId: string,
-    channelId: string,
-    messages: Message[]
-  ) => {
-    const newData = classes;
-    const classIx = newData.findIndex((c) => c.id === classId);
-    if (newData[classIx].channels) {
-      const channelIx = newData[classIx].channels!.findIndex(
-        (c) => c.id === channelId
-      );
-      if (newData[classIx].channels![channelIx].messages) {
-        newData[classIx].channels![channelIx].messages = [
-          ...messages,
-          ...newData[classIx].channels![channelIx].messages!,
-        ];
-      } else {
-        newData[classIx].channels![channelIx].messages = [...messages];
-      }
-      setClasses([...newData]);
-    }
   };
 
   return (
@@ -87,9 +52,7 @@ function App() {
             </SolidBtn>
             <Switch>
               <Route exact path="/" children={<Landing />} />
-              <ClassesContext.Provider
-                value={{ classes, setClasses, setMessages, setChannels }}
-              >
+              <ClassesContext.Provider value={{ classes, setClasses }}>
                 <BasicAuthRoute
                   path="/classes"
                   children={<Home user={user} />}
@@ -102,7 +65,7 @@ function App() {
                 />
                 <ClassAuthRoute
                   path="/classes/c/:classId"
-                  children={<ChompClass />}
+                  children={<ChompClass user={user} />}
                 />
               </ClassesContext.Provider>
             </Switch>

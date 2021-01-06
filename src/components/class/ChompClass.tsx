@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./ChompClass.css";
 import firebase from "firebase/app";
@@ -6,27 +6,24 @@ import "firebase/firestore";
 import { Spinner } from "../_common/Spinner";
 import { ClassNavbar } from "./ClassNavbar";
 import { ClassesContext } from "../../contexts";
-import { Channel } from "../../types/firestoreTypes";
-import { fetchInitialClassData } from "../../utils/fetchFromFirestore";
+import { fetchClass } from "../../utils/fetchFromFirestore";
+import { Thread } from "../../types/firestoreTypes";
 
-interface Props {}
+interface Props {
+  user: firebase.User;
+}
 
 export const ChompClass = (props: Props) => {
   //@ts-ignore
   const { classId } = useParams();
   const classesCtx = useContext(ClassesContext);
   const currentClass = classesCtx.classes.find((c) => c.id === classId);
-
   useEffect(() => {
-    if (!currentClass?.channels) {
-      fetchInitialClassData(classId)
-        .then(async (res) => {
-          if (currentClass) classesCtx.setChannels(classId, res);
-          else {
-          }
-        })
-        .catch((err) => console.log(err));
-    }
+    fetchClass(classId)
+      .then((res) => {
+        console.log((res as unknown) as Thread);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
