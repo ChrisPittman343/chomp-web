@@ -3,8 +3,13 @@ export const NO_LOGIN = {
   status: "UNAUTHORIZED",
 };
 
+export const BAD_TOKEN = {
+  message: "The access token expired or there was none to begin with.",
+  status: "UNAUTHORIZED",
+};
+
 export const NOT_AUTHORIZED = {
-  message: "This user is not authorized to interact with this content.",
+  message: "This user does not have the proper auth to request this content.",
   status: "UNAUTHORIZED",
 };
 

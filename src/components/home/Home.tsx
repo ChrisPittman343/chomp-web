@@ -4,24 +4,20 @@ import "./Home.css";
 import { HomeNavbar } from "./HomeNavbar";
 import { ClassesContext } from "../../contexts";
 import { ClassCard } from "./ClassCard";
-import { fetchClasses } from "../../utils/fetchFromFirestore";
+import { useDispatch } from "react-redux";
+import { fetchAllClasses } from "../../redux/classesSlice";
 
 interface Props {
   user: firebase.User;
 }
 
 export const Home = (props: Props) => {
-  const { user } = props;
   const classesCtx = useContext(ClassesContext);
-
+  const dispatch = useDispatch();
+  dispatch(fetchAllClasses());
   useEffect(() => {
     window.scroll({ top: 0 });
-    fetchClasses(user)
-      .then((value) => {
-        classesCtx.setClasses(value);
-      })
-      .catch((err) => console.log(err));
-  }, [user]);
+  }, [props]);
 
   const createClass = async () => {};
 

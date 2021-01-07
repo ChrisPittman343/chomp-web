@@ -1,9 +1,9 @@
 import { Message } from "../types/firestoreTypes";
 import { ReduxAction } from "../types/reduxTypes";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
-const initialState = {
-  messages: [] as Message[],
-};
+const initialState: Message[] = [];
 
 // Use the initialState as a default value
 export default function messagesReducer(

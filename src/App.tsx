@@ -21,6 +21,13 @@ import { Class } from "./types/firestoreTypes";
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    //Clear store, so people who log on after you have no chance of getting your data
+  } else {
+  }
+});
+
 firebase.functions().useEmulator("localhost", 5000);
 
 function App() {
@@ -32,7 +39,6 @@ function App() {
     toggleColorScheme(darkMode);
     setDarkMode(!darkMode);
   };
-
   return (
     <DarkModeContext.Provider value={{ darkMode, toggleDarkMode }}>
       <UserContext.Provider value={{ user, loading, error }}>

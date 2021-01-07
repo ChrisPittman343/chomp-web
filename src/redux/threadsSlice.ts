@@ -1,9 +1,9 @@
 import { Thread } from "../types/firestoreTypes";
 import { ReduxAction } from "../types/reduxTypes";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
-const initialState = {
-  threads: [] as Thread[],
-};
+const initialState: Thread[] = [];
 
 // Use the initialState as a default value
 export default function threadsReducer(
@@ -11,7 +11,7 @@ export default function threadsReducer(
   action: ReduxAction
 ) {
   switch (action.type) {
-    case "threads/threadAdded": {
+    case "threads/threadLoaded": {
       return initialState;
     }
 

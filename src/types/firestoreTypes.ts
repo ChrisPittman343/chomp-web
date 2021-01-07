@@ -19,7 +19,16 @@ export interface Message {
   threadId: string;
   email: string;
   message: string;
-  replies?: Message[];
+  sent: string;
+  replyIds: string[];
 }
 
-export interface Roster {}
+export interface Roster {
+  id: string;
+  classId: string;
+  people: {
+    role?: "teacher" | "student";
+    photoUrl?: string;
+    email: string;
+  }[];
+}

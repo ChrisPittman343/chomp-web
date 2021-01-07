@@ -19,7 +19,7 @@ export const GCSelectionOverlay = (props: Props) => {
 
   useEffect(() => {
     if (!hidden && accessToken.length > 0) {
-      authedRequest(user, "/get-classes", accessToken)
+      authedRequest("/get-classes", accessToken)
         .then((value) => {
           if (value.status === 200) {
             //@ts-ignore

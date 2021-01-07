@@ -1,9 +1,15 @@
 import { Class } from "../types/firestoreTypes";
 import { ReduxAction } from "../types/reduxTypes";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { RootState } from "./reducer";
+import {
+  fetchClassesFromFirestore,
+  fetchClassFromFirestore,
+} from "../utils/fetchFromFirestore";
+import { loadClassCreator, loadClassesCreator } from "./actionCreators";
 
-const initialState = {
-  classes: [] as Class[],
-};
+const initialState: Class[] = [];
 
 // Use the initialState as a default value
 export default function classesReducer(
@@ -12,24 +18,35 @@ export default function classesReducer(
 ) {
   switch (action.type) {
     case "classes/classAdded": {
-      return {
-        ...state,
-        classes: [
-          ...state.classes,
-          {
-            ...action.payload,
-          },
-        ],
-      };
+      return [...state, action.payload.class];
     }
-    case "threads/threadAdded": {
-      return {
-        ...state,
-        classes: [...state.classes],
-      };
+    case "classes/classesLoaded": {
+      return [...state, ...action.payload.classes];
     }
     default: {
       return initialState;
     }
   }
 }
+
+export const loadAllClasses = () => {
+  return async function fetchAllClassesThunk(
+    dispatch: any,
+    getState: () => RootState
+  ) {
+    fetchClassesFromFirestore()
+      .then((classes) => dispatch(loadClassesCreator(classes)))
+      .catch((err) => err);
+  };
+};
+
+export const loadClass = (classId: string) => {
+  return async function fetchAllClassesThunk(
+    dispatch: any,
+    getState: () => RootState
+  ) {
+    fetchClassFromFirestore(classId)
+      .then((c) => dispatch(loadClassCreator(c)))
+      .catch((err) => err);
+  };
+};

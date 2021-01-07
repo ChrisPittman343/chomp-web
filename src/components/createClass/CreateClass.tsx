@@ -6,7 +6,7 @@ import "./CreateClass.css";
 import { FormField } from "./FormField";
 import { StudentsTable } from "./StudentsTable";
 import firebase from "firebase/app";
-import { signInWithGoogle } from "../../utils/signInWithGoogle";
+import { reauthWithGoogle } from "../../utils/signInWithGoogle";
 import { HTTPSCourseInfo } from "../../types/httpsTypes";
 import { GCSelectionOverlay } from "./GCSelectionOverlay";
 
@@ -32,24 +32,17 @@ export const CreateClass = (props: Props) => {
 
   const openOverlay = async (e: any) => {
     if (accessToken.length === 0) {
-      await signInWithGoogle();
+      reauthWithGoogle(props.user).then((res) => {
+        if (res.user) {
+          //@ts-ignore
+          setAccessToken(res.credential.accessToken);
+          setHidden(false);
+        }
+      });
     } else {
       setHidden(false);
     }
   };
-
-  //Could be a bug if a user signs out on this page?
-  firebase
-    .auth()
-    .getRedirectResult()
-    .then((result) => {
-      if (result.user) {
-        //@ts-ignore
-        setAccessToken(result.credential.accessToken);
-        setHidden(false);
-      }
-    })
-    .catch(console.log);
 
   const updateFromClass = (cd: HTTPSCourseInfo) => {
     setName(cd.course.name);
