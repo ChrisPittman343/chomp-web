@@ -35,13 +35,15 @@ export async function fetchClassesFromFirestore(): Promise<Class[]> {
  * This includes a few of the most recent threads (Sorted by creation date), tags, and very basic roster info.
  * @returns array of type Thread (No replies inside, loaded on request)
  */
-export async function fetchClassFromFirestore(
-  classId: string
-): Promise<Thread[]> {
-  const db = firebase.firestore();
-  const threadDocs = await db
-    .collection("classes")
-    .doc(classId)
+export async function fetchClassFromFirestore(classId: string) {
+  const classRef = firebase.firestore().collection("classes").doc(classId);
+  const classData = await classRef
+    .get()
+    .then((res) => res.data() as Class)
+    .catch((err) => {
+      throw err;
+    });
+  const threadDocs = await classRef
     .collection("threads")
     .orderBy("created", "desc")
     .limit(10)
@@ -52,8 +54,14 @@ export async function fetchClassFromFirestore(
     .catch((err) => {
       throw err;
     });
+  classData.threadIds = [];
+  classData.id = classId;
   const threads = threadDocs.map((doc) => doc.data() as Thread);
-  return threads;
+  threads.forEach((t) => {
+    t.classId = classId;
+    classData.threadIds!.push(t.id);
+  });
+  return { class: classData, threads };
 }
 
 /**

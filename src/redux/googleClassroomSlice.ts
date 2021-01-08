@@ -1,7 +1,6 @@
 import { GoogleClassroom, ReduxAction } from "../types/reduxTypes";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { HTTPSCourseInfo } from "../types/httpsTypes";
 import { RootState } from "./reducer";
 import { authedRequest } from "../utils/authedRequest";
 import { BAD_TOKEN, NO_LOGIN } from "../types/errors";
@@ -16,15 +15,15 @@ export default function googleClassroomReducer(
   switch (action.type) {
     case "gc/classesFetched": {
       return {
-        ...initialState,
-        classes: [...initialState.classes, ...action.payload.classes],
+        ...state,
+        classes: [...state.classes, ...action.payload.classes],
       };
     }
     case "gc/tokenRecieved": {
-      return initialState;
+      return state;
     }
     default: {
-      return initialState;
+      return state;
     }
   }
 }
@@ -36,7 +35,7 @@ export const fetchGoogleClassroom = () => {
   ) {
     if (getState().googleClassroom.accessToken) {
       const { token, timeSaved } = getState().googleClassroom.accessToken!;
-      //Check to see how much time has passed since the token was saved
+      if (Date.now() - timeSaved <= 15 * 60 * 1000) throw BAD_TOKEN; //15 minutes
       const user = firebase.auth().currentUser;
       if (!user) throw NO_LOGIN;
       authedRequest("/get-classes", token);

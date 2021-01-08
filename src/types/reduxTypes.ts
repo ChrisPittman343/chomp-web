@@ -37,6 +37,7 @@ export interface ClassesLoadedAction {
 export interface ClassLoadedAction {
   type: "classes/classLoaded";
   payload: {
+    class: Class;
     threads: Thread[];
   };
 }

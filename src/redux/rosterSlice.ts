@@ -1,7 +1,5 @@
 import { Roster } from "../types/firestoreTypes";
 import { ReduxAction } from "../types/reduxTypes";
-import firebase from "firebase/app";
-import "firebase/firestore";
 
 const initialState: Roster[] = [];
 
@@ -12,19 +10,19 @@ export default function rosterReducer(
 ) {
   switch (action.type) {
     case "rosters/rosterLoaded": {
-      return initialState;
+      return state;
     }
     case "rosters/rosterInvite": {
-      return initialState;
+      return state;
     }
     case "rosters/rosterKick": {
-      return initialState;
+      return state;
     }
     case "rosters/rosterMutate": {
-      return initialState;
+      return state;
     }
     default: {
-      return initialState;
+      return state;
     }
   }
 }

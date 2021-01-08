@@ -1,7 +1,6 @@
 import { Thread } from "../types/firestoreTypes";
 import { ReduxAction } from "../types/reduxTypes";
-import firebase from "firebase/app";
-import "firebase/firestore";
+import { updateStateNoRepeats } from "../utils/updateStateNoRepeats";
 
 const initialState: Thread[] = [];
 
@@ -11,12 +10,14 @@ export default function threadsReducer(
   action: ReduxAction
 ) {
   switch (action.type) {
-    case "threads/threadLoaded": {
-      return initialState;
+    case "classes/classLoaded": {
+      return updateStateNoRepeats(state, action.payload.threads);
     }
-
+    case "threads/threadLoaded": {
+      return state;
+    }
     default: {
-      return initialState;
+      return state;
     }
   }
 }

@@ -14,7 +14,7 @@ interface Props {
 }
 const arr: HTTPSCourseInfo[] = [];
 export const GCSelectionOverlay = (props: Props) => {
-  const { hidden, accessToken, user, setHidden, updateFromClass } = props;
+  const { hidden, accessToken, setHidden, updateFromClass } = props;
   const [courseData, setCourseData] = useState(arr);
 
   useEffect(() => {

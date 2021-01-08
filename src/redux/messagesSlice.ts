@@ -1,7 +1,5 @@
 import { Message } from "../types/firestoreTypes";
 import { ReduxAction } from "../types/reduxTypes";
-import firebase from "firebase/app";
-import "firebase/firestore";
 
 const initialState: Message[] = [];
 
@@ -12,11 +10,11 @@ export default function messagesReducer(
 ) {
   switch (action.type) {
     case "messages/messageAdded": {
-      return initialState;
+      return state;
     }
 
     default: {
-      return initialState;
+      return state;
     }
   }
 }

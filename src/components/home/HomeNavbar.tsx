@@ -1,18 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { DarkModeContext } from "../../contexts";
 import { SolidBtn } from "../_common/buttons/SolidBtn";
-import { TextBtn } from "../_common/buttons/TextBtn";
 import { ChompTitle } from "../_common/ChompTitle";
 import { NavbarContainer } from "../_common/NavbarContainer";
 import "./HomeNavbar.css";
 
-interface Props {
-  createClass: Function;
-}
+interface Props {}
 
 export const HomeNavbar = (props: Props) => {
-  const darkModeCtx = useContext(DarkModeContext);
   return (
     <NavbarContainer>
       <Link to="/classes">

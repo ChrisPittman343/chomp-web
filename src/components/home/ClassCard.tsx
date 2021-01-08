@@ -10,7 +10,7 @@ interface Props {
 export const ClassCard = (props: Props) => {
   const { name, section, description, id } = props.classInfo;
   return (
-    <Link to={`/classes/c/${id}`}>
+    <Link to={`/class/c/${id}`}>
       <div className="class-card">
         <div className="card-head">
           <div className="card-title">{name}</div>

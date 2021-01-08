@@ -7,7 +7,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/functions";
 import { firebaseConfig } from "./constants";
-import { ClassesContext, DarkModeContext, UserContext } from "./contexts";
+import { DarkModeContext, UserContext } from "./contexts";
 import { toggleColorScheme } from "./utils/toggleColorScheme";
 import { Landing } from "./components/landing/Landing";
 import { Home } from "./components/home/Home";
@@ -16,7 +16,6 @@ import { ClassAuthRoute } from "./components/_common/routes/ClassAuthRoute";
 import { ChompClass } from "./components/class/ChompClass";
 import { CreateClass } from "./components/createClass/CreateClass";
 import { SolidBtn } from "./components/_common/buttons/SolidBtn";
-import { Class } from "./types/firestoreTypes";
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -33,7 +32,6 @@ firebase.functions().useEmulator("localhost", 5000);
 function App() {
   const [user, loading, error] = useAuthState(auth);
   const [darkMode, setDarkMode] = useState(true);
-  const [classes, setClasses] = useState<Class[]>([]);
 
   const toggleDarkMode = () => {
     toggleColorScheme(darkMode);
@@ -52,28 +50,26 @@ function App() {
             </SolidBtn>
             <SolidBtn
               onClick={() => auth.signOut()}
-              style={{ position: "absolute", top: 10, right: 10 }}
+              style={{ position: "fixed", top: 10, right: 10 }}
             >
               Sign Out
             </SolidBtn>
             <Switch>
               <Route exact path="/" children={<Landing />} />
-              <ClassesContext.Provider value={{ classes, setClasses }}>
-                <BasicAuthRoute
-                  path="/classes"
-                  children={<Home user={user} />}
-                  routeProps={{ exact: true }}
-                />
-                <BasicAuthRoute
-                  path="/classes/create-class"
-                  children={<CreateClass user={user} />}
-                  routeProps={{ exact: true }}
-                />
-                <ClassAuthRoute
-                  path="/classes/c/:classId"
-                  children={<ChompClass user={user} />}
-                />
-              </ClassesContext.Provider>
+              <ClassAuthRoute
+                path="/class/c/:classId"
+                children={<ChompClass user={user} />}
+              />
+              <BasicAuthRoute
+                path="/classes/create-class"
+                children={<CreateClass user={user} />}
+                routeProps={{ exact: true }}
+              />
+              <BasicAuthRoute
+                path="/classes"
+                children={<Home user={user} />}
+                routeProps={{ exact: true }}
+              />
             </Switch>
           </div>
         </Router>

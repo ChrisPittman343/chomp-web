@@ -4,11 +4,18 @@ import { RootState } from "./reducer";
 
 export const getClasses = (store: RootState) => store.classes;
 
+export const getClassById = (id: string) => (store: RootState) =>
+  store.classes.find((c) => c.id === id);
+
 //#endregion
 
 //#region Threads Selector
 
-export const getThreads = (store: RootState) => store.threads;
+export const getThreads = (classId: string) => (store: RootState) =>
+  store.threads.filter((t) => t.classId === classId);
+
+export const getThreadById = (id: string) => (store: RootState) =>
+  store.threads.find((t) => t.id === id);
 
 //#endregion
 

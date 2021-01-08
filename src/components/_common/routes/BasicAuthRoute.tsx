@@ -23,5 +23,7 @@ export const BasicAuthRoute = (props: Props) => {
   } else {
     content = props.children;
   }
-  return <Route {...props.routeProps} path={props.path} children={content} />;
+  return (
+    <Route {...props.routeProps} path={props.path} children={content} ren />
+  );
 };

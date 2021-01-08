@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Class } from "../../types/firestoreTypes";
 import { ChompTitle } from "../_common/ChompTitle";
 import { NavbarContainer } from "../_common/NavbarContainer";
 import "./ClassNavbar.css";
 
 interface Props {
-  classData: any;
+  classData: Class;
 }
 
 export const ClassNavbar = (props: Props) => {
@@ -14,7 +15,7 @@ export const ClassNavbar = (props: Props) => {
       <Link to="/classes">
         <ChompTitle />
       </Link>
-      {props.classData.name} {">"} General
+      {props.classData.name}
     </NavbarContainer>
   );
 };

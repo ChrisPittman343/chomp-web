@@ -16,10 +16,13 @@ export const loadClassesCreator = (classes: Class[]): ClassesLoadedAction => {
   };
 };
 
-export const loadClassCreator = (threads: Thread[]): ClassLoadedAction => {
+export const loadClassCreator = (
+  classData: Class,
+  threads: Thread[]
+): ClassLoadedAction => {
   return {
     type: "classes/classLoaded",
-    payload: { threads },
+    payload: { class: classData, threads },
   };
 };
 

@@ -1,34 +1,31 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import firebase from "firebase";
 import "./Home.css";
 import { HomeNavbar } from "./HomeNavbar";
-import { ClassesContext } from "../../contexts";
 import { ClassCard } from "./ClassCard";
-import { useDispatch } from "react-redux";
-import { fetchAllClasses } from "../../redux/classesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { loadAllClasses } from "../../redux/classesSlice";
+import { getClasses } from "../../redux/selectors";
 
 interface Props {
   user: firebase.User;
 }
 
 export const Home = (props: Props) => {
-  const classesCtx = useContext(ClassesContext);
+  const classes = useSelector(getClasses);
   const dispatch = useDispatch();
-  dispatch(fetchAllClasses());
   useEffect(() => {
     window.scroll({ top: 0 });
-  }, [props]);
-
-  const createClass = async () => {};
+    if (!classes || classes.length === 0) dispatch(loadAllClasses());
+  }, []);
 
   return (
     <div className="home-page">
-      <HomeNavbar createClass={() => createClass()} />
-
+      <HomeNavbar />
       <div className="home-body">
         <div className="class-card-display">
-          {classesCtx.classes.map((c) => {
-            return <ClassCard classInfo={c} />;
+          {classes.map((c, cIx) => {
+            return <ClassCard classInfo={c} key={cIx} />;
           })}
         </div>
       </div>
