@@ -15,7 +15,9 @@ export const ClassNavbar = (props: Props) => {
       <Link to="/classes">
         <ChompTitle />
       </Link>
-      {props.classData.name}
+      <span className="big-txt bold" style={{ paddingLeft: 20 }}>
+        {props.classData.name}
+      </span>
     </NavbarContainer>
   );
 };

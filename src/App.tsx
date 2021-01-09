@@ -57,6 +57,10 @@ function App() {
             <Switch>
               <Route exact path="/" children={<Landing />} />
               <ClassAuthRoute
+                path="/class/c/:classId/t/:threadId"
+                children={<div>This is a thread page.</div>}
+              />
+              <ClassAuthRoute
                 path="/class/c/:classId"
                 children={<ChompClass user={user} />}
               />

@@ -1,0 +1,21 @@
+.new-thread {
+  margin: auto;
+  border-radius: 100%;
+  background: var(--main-hover);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.1s ease-in;
+}
+
+.new-thread:hover {
+  cursor: pointer;
+  background: var(--main-press);
+}
+
+.inverted {
+  filter: invert(1);
+}

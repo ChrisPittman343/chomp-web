@@ -1,0 +1,49 @@
+.thread-card {
+  background: var(--main-hover);
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  transition: background 0.1s ease-in;
+  padding: 6px 10px 2px 10px;
+  margin: 15px 0;
+  border-radius: 5px;
+  mask: black;
+}
+
+.thread-card:hover {
+  cursor: pointer;
+  background: var(--main-press);
+}
+
+.thread-open {
+  border-left: 5px solid var(--amber);
+}
+
+.thread-resolved {
+  border-left: 5px solid var(--green);
+}
+
+.thread-head {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
+.thread-head * {
+  opacity: 0.5;
+}
+
+.thread-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 9px;
+  padding-left: 0;
+  font-weight: 500;
+}
+
+.thread-title {
+  min-height: 32px;
+  padding-top: 5px;
+}

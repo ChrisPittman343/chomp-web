@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getClassById, getThreads } from "../../redux/selectors";
 import { loadClass } from "../../redux/classesSlice";
 import { ThreadCard } from "./ThreadCard";
+import { FilterOptions } from "./FilterOptions";
+import { NewThread } from "./NewThread";
 
 interface Props {
   user: firebase.User;
@@ -28,8 +30,10 @@ export const ChompClass = (props: Props) => {
       {currentClass ? (
         <>
           <ClassNavbar classData={currentClass} />
-          <div className="class-body">
+          <div className="class-content">
+            <FilterOptions classData={currentClass} />
             <ul className="threads-list">
+              <NewThread />
               {threads.map((t, tIx) => (
                 <ThreadCard threadId={t.id} key={tIx} />
               ))}
