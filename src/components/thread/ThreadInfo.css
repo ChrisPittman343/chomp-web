@@ -1,0 +1,15 @@
+.thread-info {
+  margin: auto;
+  max-width: 1000px;
+  border-radius: 20px;
+  background: var(--main-hover);
+  padding: 10px 15px;
+}
+
+.thread-context {
+  opacity: 0.75;
+}
+
+.thread-title {
+  padding: 15px 0;
+}

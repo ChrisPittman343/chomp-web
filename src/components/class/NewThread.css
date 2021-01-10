@@ -16,6 +16,10 @@
   background: var(--main-press);
 }
 
+.plus-icon {
+  padding-top: 2px;
+}
+
 .inverted {
   filter: invert(1);
 }

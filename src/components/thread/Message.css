@@ -1,0 +1,52 @@
+.message {
+}
+
+.replies-container {
+  display: flex;
+  padding: 10px 0 20px 0;
+}
+
+.nesting-bar-container {
+  margin-left: 5px;
+  width: 20px;
+  margin-right: 5px;
+}
+
+.nesting-bar {
+  background: var(--main-press);
+  width: 2px;
+  margin: auto;
+  opacity: 0.5;
+  height: 100%;
+  transition: background 0.1s ease-in;
+}
+
+.nesting-bar-container:hover {
+  cursor: pointer;
+}
+
+.nesting-bar-container:hover .nesting-bar {
+  background: var(--main-color);
+}
+
+.replies {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+/* COLLAPSE STYLES */
+
+.collapsed > .nesting-bar-container {
+  height: 5px;
+  margin-left: 0;
+}
+
+.collapsed .nesting-bar {
+  width: 100px;
+}
+
+.collapsed > .replies {
+  display: none;
+}

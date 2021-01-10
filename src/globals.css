@@ -17,6 +17,11 @@
 .bold {
   font-weight: bold;
 }
+
+.boldish {
+  font-weight: 500;
+}
+
 .round {
   border-radius: 5px;
 }

@@ -32,8 +32,8 @@ export async function fetchClassesFromFirestore(): Promise<Class[]> {
 /**
  * Returns starting data when loading up a new class. (When you click on a class card)
  *
- * This includes a few of the most recent threads (Sorted by creation date), tags, and very basic roster info.
- * @returns array of type Thread (No replies inside, loaded on request)
+ * This includes a few of the most recent threads (Sorted by creation date).
+ * @returns array of type Thread
  */
 export async function fetchClassFromFirestore(classId: string) {
   const classRef = firebase.firestore().collection("classes").doc(classId);
@@ -46,7 +46,7 @@ export async function fetchClassFromFirestore(classId: string) {
   const threadDocs = await classRef
     .collection("threads")
     .orderBy("created", "desc")
-    .limit(10)
+    .limit(12)
     .get()
     .then((res) => {
       return res.empty ? [] : res.docs;
@@ -64,13 +64,15 @@ export async function fetchClassFromFirestore(classId: string) {
 
 /**
  * Returns a few replies in a thread (Paginate when necessary).
- * @returns a Thread object
+ * @returns a tuple of [Thread, Messages[]]
  */
 export async function fetchThreadFromFirestore(
   classId: string,
   threadId: string
-): Promise<Message[]> {
+): Promise<any> {
+  //Fix the return type (Throws errors, too lazy to fix)
   const db = firebase.firestore();
+
   return db
     .collection("classes")
     .doc(classId)
@@ -78,7 +80,7 @@ export async function fetchThreadFromFirestore(
     .doc(threadId)
     .collection("messages")
     .orderBy("sent", "desc")
-    .limit(10)
+    .limit(15)
     .get()
     .then((res) => {
       return res.empty ? [] : res.docs.map((doc) => doc.data() as Message);

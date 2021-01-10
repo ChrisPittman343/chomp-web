@@ -4,5 +4,5 @@ import "./CreateThread.css";
 interface Props {}
 
 export const CreateThread = (props: Props) => {
-  return <div></div>;
+  return <div>New thread page</div>;
 };

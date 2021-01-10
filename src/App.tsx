@@ -17,6 +17,7 @@ import { ChompClass } from "./components/class/ChompClass";
 import { CreateClass } from "./components/createClass/CreateClass";
 import { SolidBtn } from "./components/_common/buttons/SolidBtn";
 import { ChompThread } from "./components/thread/ChompThread";
+import { CreateThread } from "./components/createThread/CreateThread";
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -60,6 +61,10 @@ function App() {
               <ClassAuthRoute
                 path="/class/c/:classId/t/:threadId"
                 children={<ChompThread />}
+              />
+              <ClassAuthRoute
+                path="/class/c/:classId/create-thread"
+                children={<CreateThread />}
               />
               <ClassAuthRoute
                 path="/class/c/:classId"

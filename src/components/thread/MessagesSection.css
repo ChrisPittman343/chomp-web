@@ -1,0 +1,12 @@
+.messages-section {
+  background: var(--main-hover);
+  border-radius: 20px;
+  max-width: 900px;
+  margin: auto;
+  margin-top: 50px;
+  padding: 10px 15px;
+}
+
+.message-list * {
+  font-size: 17px;
+}
