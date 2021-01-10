@@ -54,7 +54,14 @@ export interface ThreadLoadedAction {
   };
 }
 
-type ThreadAction = ThreadLoadedAction;
+export interface ThreadAddedAction {
+  type: "threads/threadAdded";
+  payload: {
+    thread: Thread;
+  };
+}
+
+type ThreadAction = ThreadLoadedAction | ThreadAddedAction;
 //#endregion
 
 //#region Message Actions

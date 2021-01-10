@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { getThreadById } from "../../redux/selectors";
 import { Thread } from "../../types/firestoreTypes";
 import "./ThreadCard.css";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 interface Props {
   threadId: string;
@@ -13,11 +15,21 @@ export const ThreadCard = (props: Props) => {
   const thread = useSelector(getThreadById(props.threadId));
   if (!thread) return <></>;
   else {
-    const stateClass = thread.status.isResolved
-      ? "thread-resolved"
-      : thread.status.isClosed
-      ? ""
-      : "thread-open";
+    const { isResolved, isClosed } = thread.status;
+    const stateClass =
+      !isClosed && isResolved
+        ? "thread-open-resolved"
+        : isClosed && !isResolved
+        ? "thread-closed-unresolved"
+        : isClosed && isResolved
+        ? "thread-closed-resolved"
+        : "thread-open-unresolved";
+    /*
+    Open = Amber
+    Resolved + Open = Green
+    NOT Resolved + Closed = Red
+    Resolved + Closed = Nothing
+     */
     return (
       <Link to={`/class/c/${thread.classId}/t/${thread.id}`}>
         <li className={`thread-card ${stateClass}`}>
@@ -26,7 +38,7 @@ export const ThreadCard = (props: Props) => {
             <span className="num-messages">
               {thread.status.numMessages} messages
             </span>
-            <span className="created-on">Opened {getCreationDate(thread)}</span>
+            <span className="created-on">Posted {getCreationDate(thread)}</span>
           </div>
           <div className="thread-main med-txt">
             <div className="thread-title">{thread.title}</div>
@@ -46,7 +58,9 @@ export const ThreadCard = (props: Props) => {
  */
 function getCreationDate(thread: Thread) {
   const currentDate = moment(new Date());
-  const createdDate = moment(thread.created.toDate());
+  const createdDate = moment(
+    (thread.created as firebase.firestore.Timestamp).toDate()
+  );
   const sd = currentDate.diff(createdDate, "seconds");
 
   let final: number;

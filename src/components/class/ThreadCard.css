@@ -1,14 +1,14 @@
 .thread-card {
   background: var(--main-hover);
-  max-width: 700px;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  transition: background 0.1s ease-in;
-  padding: 6px 10px 2px 10px;
+  transition-property: background, border;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+  padding: 6px 10px 0 10px;
   margin: 15px 0;
   border-radius: 5px;
-  mask: black;
 }
 
 .thread-card:hover {
@@ -16,12 +16,24 @@
   background: var(--main-press);
 }
 
-.thread-open {
+.thread-open-resolved {
+  border-left: 5px solid var(--green);
+}
+
+.thread-open-unresolved {
   border-left: 5px solid var(--amber);
 }
 
-.thread-resolved {
-  border-left: 5px solid var(--green);
+.thread-closed-resolved {
+  border-left: 5px solid var(--main-hover);
+}
+
+.thread-closed-resolved:hover {
+  border-left: 5px solid var(--main-press);
+}
+
+.thread-closed-unresolved {
+  border-left: 5px solid var(--red);
 }
 
 .thread-head {
@@ -31,15 +43,14 @@
 }
 
 .thread-head * {
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .thread-main {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 9px;
-  padding-left: 0;
+  padding: 9px 9px 5px 0;
   font-weight: 500;
 }
 

@@ -17,7 +17,7 @@ export default function classesReducer(
 ) {
   switch (action.type) {
     case "classes/classAdded": {
-      return [...state, action.payload.class];
+      return [action.payload.class, ...state];
     }
     case "classes/classesLoaded": {
       return [...state, ...action.payload.classes];

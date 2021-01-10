@@ -54,12 +54,10 @@ export async function fetchClassFromFirestore(classId: string) {
     .catch((err) => {
       throw err;
     });
-  classData.threadIds = [];
   classData.id = classId;
   const threads = threadDocs.map((doc) => doc.data() as Thread);
   threads.forEach((t) => {
     t.classId = classId;
-    classData.threadIds!.push(t.id);
   });
   return { class: classData, threads };
 }

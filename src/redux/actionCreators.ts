@@ -5,6 +5,7 @@ import {
   ClassesLoadedAction,
   ClassLoadedAction,
   MessageAddedAction,
+  ThreadAddedAction,
 } from "../types/reduxTypes";
 
 //#region Classes Action Creators
@@ -29,6 +30,13 @@ export const loadClassCreator = (
 //#endregion
 
 //#region Threads Action Creators
+
+export const addThreadCreator = (thread: Thread): ThreadAddedAction => {
+  return {
+    type: "threads/threadAdded",
+    payload: { thread },
+  };
+};
 
 //#endregion
 

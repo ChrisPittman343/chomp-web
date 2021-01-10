@@ -3,27 +3,31 @@ import "firebase/firestore";
 
 export interface Class {
   id: string;
-  threadIds?: string[];
-  tags?: string[];
+  roster: string;
   name: string;
   section: string;
   description: string;
+  tags?: string[];
+  participants: string[];
 }
+//For threads and messages, having a subclass of anonymous_X might be a good idea
 export interface Thread {
   id: string;
   classId: string;
+  className: string;
   email: string;
   title: string;
   message: string;
+  tags?: string[];
   status: {
     numMessages: number;
     isResolved: boolean;
     isClosed: boolean;
   };
   created: firebase.firestore.Timestamp;
-  replyIds?: string[];
 }
 
+//For threads and messages, having a subclass of anonymous_X might be a good idea
 export interface Message {
   id: string;
   threadId: string;

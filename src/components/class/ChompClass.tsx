@@ -25,24 +25,20 @@ export const ChompClass = (props: Props) => {
   useEffect(() => {
     dispatch(loadClass(classId));
   }, []);
-  return (
+  return currentClass ? (
     <div className="class-page">
-      {currentClass ? (
-        <>
-          <ClassNavbar classData={currentClass} />
-          <div className="class-content">
-            <FilterOptions classData={currentClass} />
-            <ul className="threads-list">
-              <NewThread />
-              {threads.map((t, tIx) => (
-                <ThreadCard threadId={t.id} key={tIx} />
-              ))}
-            </ul>
-          </div>
-        </>
-      ) : (
-        <Spinner parentSize={70} style={{ margin: "auto", marginTop: 70 }} />
-      )}
+      <ClassNavbar classData={currentClass} />
+      <div className="class-content">
+        <FilterOptions classData={currentClass} />
+        <ul className="threads-list">
+          <NewThread />
+          {threads.map((t, tIx) => (
+            <ThreadCard threadId={t.id} key={tIx} />
+          ))}
+        </ul>
+      </div>
     </div>
+  ) : (
+    <Spinner parentSize={70} style={{ margin: "auto", marginTop: 70 }} />
   );
 };

@@ -9,6 +9,7 @@ import firebase from "firebase/app";
 import { reauthWithGoogle } from "../../utils/signInWithGoogle";
 import { HTTPSCourseInfo } from "../../types/httpsTypes";
 import { GCSelectionOverlay } from "./GCSelectionOverlay";
+import { createClassFromFirestore } from "../../utils/firestoreFunction";
 
 interface Props {
   user: firebase.User;
@@ -24,10 +25,12 @@ export const CreateClass = (props: Props) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const createClass = firebase.functions().httpsCallable("createClass");
-    createClass({ name, section, description, participants }).then((result) => {
-      console.log(result);
-    });
+    createClassFromFirestore({
+      name,
+      section,
+      description,
+      participants,
+    }).then((data) => console.log(data));
   };
 
   const openOverlay = async (e: any) => {

@@ -16,6 +16,7 @@ import { ClassAuthRoute } from "./components/_common/routes/ClassAuthRoute";
 import { ChompClass } from "./components/class/ChompClass";
 import { CreateClass } from "./components/createClass/CreateClass";
 import { SolidBtn } from "./components/_common/buttons/SolidBtn";
+import { ChompThread } from "./components/thread/ChompThread";
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -44,13 +45,13 @@ function App() {
           <div className="App">
             <SolidBtn
               onClick={() => toggleDarkMode()}
-              style={{ position: "fixed", right: 130, top: 10 }}
+              style={{ position: "fixed", right: 130, top: 10, zIndex: 100 }}
             >
               Toggle Theme
             </SolidBtn>
             <SolidBtn
               onClick={() => auth.signOut()}
-              style={{ position: "fixed", top: 10, right: 10 }}
+              style={{ position: "fixed", top: 10, right: 10, zIndex: 100 }}
             >
               Sign Out
             </SolidBtn>
@@ -58,7 +59,7 @@ function App() {
               <Route exact path="/" children={<Landing />} />
               <ClassAuthRoute
                 path="/class/c/:classId/t/:threadId"
-                children={<div>This is a thread page.</div>}
+                children={<ChompThread />}
               />
               <ClassAuthRoute
                 path="/class/c/:classId"

@@ -1,11 +1,12 @@
 .class-content {
-  max-width: 900px;
+  width: 90%;
   margin: auto;
-  margin-top: 70px;
+  margin-top: 58px;
 }
 
 .threads-list {
-  max-width: 700px;
+  list-style: none;
+  max-width: 800px;
   margin: auto;
   border-radius: 20px;
 }

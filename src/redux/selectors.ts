@@ -23,6 +23,9 @@ export const getThreadById = (id: string) => (store: RootState) =>
 
 export const getMessages = (store: RootState) => store.messages;
 
+export const getMessagesById = (threadId: string) => (store: RootState) =>
+  store.messages.filter((m) => m.threadId === threadId);
+
 //#endregion
 
 //#region Rosters Selector

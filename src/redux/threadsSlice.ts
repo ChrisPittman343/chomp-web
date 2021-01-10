@@ -1,6 +1,12 @@
 import { Thread } from "../types/firestoreTypes";
 import { ReduxAction } from "../types/reduxTypes";
+import {
+  createThreadFromFirestore,
+  NewThreadInput,
+} from "../utils/firestoreFunction";
 import { updateStateNoRepeats } from "../utils/updateStateNoRepeats";
+import { addThreadCreator } from "./actionCreators";
+import { RootState } from "./reducer";
 
 const initialState: Thread[] = [];
 
@@ -13,6 +19,9 @@ export default function threadsReducer(
     case "classes/classLoaded": {
       return updateStateNoRepeats(state, action.payload.threads);
     }
+    case "threads/threadAdded": {
+      return [action.payload.thread, ...state];
+    }
     case "threads/threadLoaded": {
       return state;
     }
@@ -21,3 +30,16 @@ export default function threadsReducer(
     }
   }
 }
+
+//THUNKS
+
+export const addNewThread = (thread: NewThreadInput) => {
+  return async function addNewThreadThunk(
+    dispatch: any,
+    getState: () => RootState
+  ) {
+    createThreadFromFirestore(thread)
+      .then((t) => dispatch(addThreadCreator(t)))
+      .catch((err) => err);
+  };
+};
