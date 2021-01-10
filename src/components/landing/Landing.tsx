@@ -6,9 +6,10 @@ import "./Landing.css";
 import { DarkModeContext } from "../../contexts";
 import { Footer } from "../_common/Footer";
 import { Feature } from "./Feature";
-import classroom_feature from "../../images/classroomx96.png";
+import classroom_feature from "../../images/1classroomx96.png";
 import participation_feature from "../../images/participation_feature.svg";
 import anonymous_feature from "../../images/anonymous_feature.svg";
+import expressive_feature from "../../images/expressive_feature.svg";
 
 interface Props {}
 
@@ -33,8 +34,7 @@ export const Landing = (props: Props) => {
             image={classroom_feature}
             alt="Google Classroom"
           >
-            With the click of a button, create a new Chomp class from an
-            existing Classroom class.
+            Create a new Chomp class from an existing Classroom class.
           </Feature>
           <Feature
             title="Participation Stats"
@@ -44,12 +44,19 @@ export const Landing = (props: Props) => {
             Collect participation data for a class automatically.
           </Feature>
           <Feature
+            title="Expressive Messages"
+            image={expressive_feature}
+            alt="Markdown and Tex"
+          >
+            Messages can be written in Markdown and TeX (Rendered with KaTex).
+          </Feature>
+          <Feature
             title="Optional Anonymity"
             image={anonymous_feature}
             alt="Incognito Mode"
           >
-            Students can ask and answer anonymously, so there's no stress of
-            raising your hand <br />{" "}
+            Students can ask and answer questions anonymously.
+            <br />{" "}
             <span className="small-txt">
               Teacher overridable, counts towards participation
             </span>
