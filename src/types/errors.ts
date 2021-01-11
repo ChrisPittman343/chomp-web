@@ -27,3 +27,8 @@ export const NO_CONNECTION = {
   message: "Chomp was unable to connect to this resource.",
   status: "NO CONNECTION",
 };
+
+export const NULL_RESPONSE = {
+  message: "Nothing was returned as a response",
+  status: "EMPTY",
+};

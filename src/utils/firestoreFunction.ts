@@ -36,6 +36,7 @@ export async function createThreadFromFirestore(
     .functions()
     .httpsCallable("createThread")(newThread)
     .then((res) => {
+      console.log(res);
       return {
         ...res.data,
         created: firebase.firestore.Timestamp.fromMillis(

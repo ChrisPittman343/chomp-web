@@ -5,6 +5,7 @@ import {
   ClassesLoadedAction,
   ClassLoadedAction,
   MessageAddedAction,
+  OnlyClassLoadedAction,
   ThreadAddedAction,
 } from "../types/reduxTypes";
 
@@ -24,6 +25,15 @@ export const loadClassCreator = (
   return {
     type: "classes/classLoaded",
     payload: { class: classData, threads },
+  };
+};
+
+export const loadOnlyClassCreator = (
+  classData: Class
+): OnlyClassLoadedAction => {
+  return {
+    type: "classes/onlyClassLoaded",
+    payload: { class: classData },
   };
 };
 

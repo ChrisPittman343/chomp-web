@@ -21,14 +21,14 @@ export const getThreadById = (id: string) => (store: RootState) =>
 
 //#region Messages Selector
 
-export const getMessages = (store: RootState) => store.messages;
+export const getMessageById = (id: string) => (store: RootState) =>
+  store.messages.find((m) => m.id === id);
 
 /**
- * @returns parent messages ONLY
+ * @returns parent message of that ID ONLY (Can be a reply to another message)
  */
-export const getMessagesById = (threadId: string) => (
-  store: RootState //MAKE THIS RETURN ONLY PARENT MESSAGES
-) => store.messages.filter((m) => m.threadId === threadId);
+export const getMessagesByParentId = (parentId: string) => (store: RootState) =>
+  store.messages.filter((m) => m.parentId === parentId);
 
 //#endregion
 

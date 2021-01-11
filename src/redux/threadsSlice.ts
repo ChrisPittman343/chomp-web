@@ -39,7 +39,10 @@ export const addNewThread = (thread: NewThreadInput) => {
     getState: () => RootState
   ) {
     createThreadFromFirestore(thread)
-      .then((t) => dispatch(addThreadCreator(t)))
-      .catch((err) => err);
+      .then((t) => {
+        console.log(t);
+        dispatch(addThreadCreator(t));
+      })
+      .catch((err) => console.log(err));
   };
 };

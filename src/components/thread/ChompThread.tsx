@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getMessagesById, getThreadById } from "../../redux/selectors";
+import { getThreadById } from "../../redux/selectors";
 import { Footer } from "../_common/Footer";
 import { Spinner } from "../_common/Spinner";
 import "./ChompThread.css";
@@ -14,7 +14,6 @@ interface Props {}
 export const ChompThread = (props: Props) => {
   //@ts-ignore
   const { threadId } = useParams();
-
   const dispatch = useDispatch();
   const thread = useSelector(getThreadById(threadId));
   useEffect(() => {

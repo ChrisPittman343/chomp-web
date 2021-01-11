@@ -26,9 +26,9 @@ export const CreateClass = (props: Props) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     createClassFromFirestore({
-      name,
-      section,
-      description,
+      name: name.trim(),
+      section: section.trim(),
+      description: description.trim(),
       participants,
     }).then((data) => console.log(data));
   };
@@ -93,7 +93,7 @@ export const CreateClass = (props: Props) => {
           <span className="small-txt">
             If a participant's account hasn't been made, a temporary account
             will be. If not accessed within 1 week, this temporary account will
-            be deleted
+            be deleted and removed from the roster.
           </span>
           <StudentsTable
             participants={participants}

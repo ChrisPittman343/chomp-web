@@ -30,11 +30,11 @@ export interface Thread {
 //For threads and messages, having a subclass of anonymous_X might be a good idea
 export interface Message {
   id: string;
-  threadId: string;
+  parentId: string;
+  isTop: boolean;
   email: string;
   message: string;
   sent: string;
-  replyIds: string[];
 }
 
 export interface Roster {

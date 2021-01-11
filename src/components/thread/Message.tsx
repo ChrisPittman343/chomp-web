@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import "./Message.css";
+import { MarkdownRenderer } from "../_common/MarkdownRenderer";
+import { getMessageById, getMessagesByParentId } from "../../redux/selectors";
+import { useSelector } from "react-redux";
 
 interface Props {
-  messageId?: string;
+  parentId: string;
   nestingLevel?: number;
 }
 
-export const Message = ({ nestingLevel = 0, messageId }: Props) => {
+export const Message = ({ nestingLevel = 0, parentId }: Props) => {
   const [collapse, setCollapse] = useState(false);
   const collapseState = collapse ? "collapsed" : "";
-
-  return (
+  const message = useSelector(getMessageById(parentId))!; //Check this assertion
+  const messages = useSelector(getMessagesByParentId(message.id));
+  return message ? (
     <div className="message">
-      Message
-      {nestingLevel <= 12 ? (
+      <MarkdownRenderer text={message.message} />
+      {nestingLevel <= 12 && messages.length > 0 ? (
         <div className={`replies-container ${collapseState}`}>
           <div
             className="nesting-bar-container"
@@ -22,12 +26,19 @@ export const Message = ({ nestingLevel = 0, messageId }: Props) => {
             <div className="nesting-bar"></div>
           </div>
           <div className="replies">
-            <Message nestingLevel={nestingLevel + 1} />
+            {messages.map((m, mIx) => (
+              <Message
+                key={`${nestingLevel} ${parentId}`}
+                parentId={message.id}
+              />
+            ))}
           </div>
         </div>
       ) : (
         <></>
       )}
     </div>
+  ) : (
+    <></>
   );
 };

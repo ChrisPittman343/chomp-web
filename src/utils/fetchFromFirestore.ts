@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import { Thread, Class, Message, Roster } from "../types/firestoreTypes";
-import { NO_LOGIN } from "../types/errors";
+import { NO_LOGIN, NULL_RESPONSE } from "../types/errors";
 
 /**
  * Returns basic info for all of a user's classes (From their profile).
@@ -29,17 +29,29 @@ export async function fetchClassesFromFirestore(): Promise<Class[]> {
     });
 }
 
+export async function fetchClassFromFirestore(classId: string): Promise<Class> {
+  const classRef = firebase.firestore().collection("classes").doc(classId);
+  return classRef
+    .get()
+    .then((res) => {
+      if (!res.exists) throw NULL_RESPONSE;
+      return res.data() as Class;
+    })
+    .catch((err) => {
+      throw err;
+    });
+}
+
 /**
  * Returns starting data when loading up a new class. (When you click on a class card)
  *
  * This includes a few of the most recent threads (Sorted by creation date).
  * @returns array of type Thread
  */
-export async function fetchClassFromFirestore(classId: string) {
+export async function fetchClassDataFromFirestore(classId: string) {
   const classRef = firebase.firestore().collection("classes").doc(classId);
-  const classData = await classRef
-    .get()
-    .then((res) => res.data() as Class)
+  const classData = await fetchClassFromFirestore(classId)
+    .then((res) => res)
     .catch((err) => {
       throw err;
     });

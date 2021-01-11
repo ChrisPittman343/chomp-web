@@ -1,0 +1,17 @@
+.tag-btn {
+  border: 1px solid var(--bright-red);
+  padding: 4px;
+  width: fit-content;
+  height: 32px;
+  background: transparent;
+  transition: background 0.1s ease-in;
+  font-size: 17px;
+}
+
+.tag-btn:hover {
+  cursor: pointer;
+}
+
+.tag-btn.checked {
+  background: var(--bright-red);
+}

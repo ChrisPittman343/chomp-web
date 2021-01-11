@@ -1,9 +1,8 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
 import { Thread } from "../../types/firestoreTypes";
 import { creationDateToString } from "../../utils/creationDateToString";
 import "./ThreadInfo.css";
-import gfm from "remark-gfm";
+import { MarkdownRenderer } from "../_common/MarkdownRenderer";
 
 interface Props {
   thread: Thread;
@@ -20,8 +19,8 @@ export const ThreadInfo = (props: Props) => {
         )}`}</span>
       </div>
       <div className="thread-description">
-        <div className="thread-title big-txt boldish">{thread.title}</div>
-        <ReactMarkdown plugins={[gfm]} children={thread.message} />
+        <div className="thread-title big-txt bold">{thread.title}</div>
+        <MarkdownRenderer text={thread.message} />
       </div>
     </div>
   );

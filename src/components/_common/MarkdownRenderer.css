@@ -1,0 +1,21 @@
+.markdown-renderer {
+  line-height: 1.35;
+}
+
+.markdown-renderer pre {
+  border-radius: 5px;
+  padding: 5px;
+  background: var(--main-bg);
+  border: 1px solid var(--main-press);
+  letter-spacing: 50%;
+  width: fit-content;
+}
+
+.markdown-renderer *:not(pre) code {
+  border-radius: 5px;
+  padding: 1px 2px;
+  background: var(--main-bg);
+  border: 1px solid var(--main-press);
+  letter-spacing: 50%;
+  width: fit-content;
+}

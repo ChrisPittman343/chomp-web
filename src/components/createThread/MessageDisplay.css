@@ -1,0 +1,16 @@
+.message-display *:not(label) {
+  font-size: 18px;
+}
+
+.message-display textarea {
+  resize: vertical;
+  border: 1px solid var(--main-press);
+  border-radius: 5px;
+  width: 100%;
+  min-height: 200px;
+  background: var(--main-bg);
+}
+
+.message-display textarea:focus {
+  outline: none;
+}

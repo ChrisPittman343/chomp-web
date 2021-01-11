@@ -33,7 +33,6 @@ export interface ClassesLoadedAction {
   };
 }
 
-// Should ideally return some basic class info, as well, like tags and such
 export interface ClassLoadedAction {
   type: "classes/classLoaded";
   payload: {
@@ -42,7 +41,18 @@ export interface ClassLoadedAction {
   };
 }
 
-type ClassAction = ClassAddedAction | ClassesLoadedAction | ClassLoadedAction;
+export interface OnlyClassLoadedAction {
+  type: "classes/onlyClassLoaded";
+  payload: {
+    class: Class;
+  };
+}
+
+type ClassAction =
+  | ClassAddedAction
+  | ClassesLoadedAction
+  | ClassLoadedAction
+  | OnlyClassLoadedAction;
 //#endregion
 
 //#region Thread Actions
