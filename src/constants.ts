@@ -13,3 +13,22 @@ const isServedLocally = true;
 export const BASE_URL = isServedLocally
   ? "http://localhost:5000/chomp-chat/us-central1/widgets"
   : "https://us-central1-chomp-chat.cloudfunctions.net/widgets";
+
+export const actionKeys = [
+  //"Enter",
+  //"Backspace",
+  "Control b",
+  "Control i",
+  "Control `",
+  "Control Shift ~",
+  "(",
+  "{",
+  "[",
+  '"', //LMAO
+  "'",
+  "Control Shift &",
+  "Control Shift *",
+  "Tab",
+  "Control Tab",
+  "Shift Tab",
+];

@@ -1,14 +1,15 @@
 .markdown-renderer {
-  line-height: 1.35;
+  line-height: 1.5;
+  overflow-x: hidden;
 }
 
 .markdown-renderer pre {
   border-radius: 5px;
   padding: 5px;
-  background: var(--main-bg);
+  background: var(--main-hover);
   border: 1px solid var(--main-press);
-  letter-spacing: 50%;
-  width: fit-content;
+  max-width: 99%;
+  word-wrap: normal;
 }
 
 .markdown-renderer *:not(pre) code {
@@ -16,6 +17,5 @@
   padding: 1px 2px;
   background: var(--main-bg);
   border: 1px solid var(--main-press);
-  letter-spacing: 50%;
   width: fit-content;
 }
