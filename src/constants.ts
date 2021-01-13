@@ -15,19 +15,18 @@ export const BASE_URL = isServedLocally
   : "https://us-central1-chomp-chat.cloudfunctions.net/widgets";
 
 export const actionKeys = [
-  //"Enter",
+  "Enter",
   //"Backspace",
   "Control b",
   "Control i",
-  "Control `",
+  "`",
   "Control Shift ~",
-  "(",
-  "{",
+  "Control m",
+  "Control Shift M",
+  "Shift (",
+  "Shift {",
   "[",
-  '"', //LMAO
-  "'",
-  "Control Shift &",
-  "Control Shift *",
+  'Shift "',
   "Tab",
   "Control Tab",
   "Shift Tab",

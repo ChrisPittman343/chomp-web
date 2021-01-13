@@ -1,6 +1,8 @@
 .markdown-renderer {
   line-height: 1.5;
   overflow-x: hidden;
+  overflow-y: hidden;
+  font-size: 17px;
 }
 
 .markdown-renderer pre {
@@ -15,7 +17,22 @@
 .markdown-renderer *:not(pre) code {
   border-radius: 5px;
   padding: 1px 2px;
-  background: var(--main-bg);
+  background: var(--main-hover);
   border: 1px solid var(--main-press);
   width: fit-content;
+}
+
+.markdown-renderer blockquote {
+  margin-left: 5px;
+  padding-left: 15px;
+  border-left: 3px solid var(--main-press);
+}
+
+.markdown-renderer h1,
+.markdown-renderer h2,
+.markdown-renderer h3,
+.markdown-renderer h4,
+.markdown-renderer h5,
+.markdown-renderer h6 {
+  font-size: 18px;
 }

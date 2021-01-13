@@ -1,13 +1,12 @@
-.message-display *:not(label) {
-  font-size: 18px;
-}
-
 .message-display textarea {
+  margin-left: -4px;
   resize: vertical;
   border: 1px solid var(--main-press);
-  border-radius: 5px;
+  padding: 5px;
   width: 99.4%;
-  min-height: 300px;
+  min-height: 350px;
+  max-height: 2500px;
+  font-size: 17px;
   background: var(--main-bg);
 }
 

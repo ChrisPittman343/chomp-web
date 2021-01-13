@@ -9,6 +9,7 @@ import "./MarkdownRenderer.css";
 
 interface Props {
   text: string;
+  height?: string;
 }
 
 export const MarkdownRenderer = (props: Props) => {
@@ -20,7 +21,7 @@ export const MarkdownRenderer = (props: Props) => {
   };
 
   return (
-    <div className="markdown-renderer">
+    <div className="markdown-renderer" style={{ minHeight: props.height }}>
       <ReactMarkdown
         plugins={[math, remarkGfm]}
         renderers={renderers}

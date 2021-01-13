@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { actionKeys } from "../../constants";
 import { inputReducer } from "../../utils/autoFormatMarkdown";
-import { TextBtn } from "../_common/buttons/TextBtn";
+import { SolidBtn } from "../_common/buttons/SolidBtn";
 import { MarkdownRenderer } from "../_common/MarkdownRenderer";
 import "./MessageDisplay.css";
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 export const MessageDisplay = (props: Props) => {
   const { value, setValue } = props;
   const [viewingMD, setViewingMD] = useState(false);
-  const [oldHeight, setOldHeight] = useState("300px");
+  const [oldHeight, setOldHeight] = useState("350px");
   const box = useRef<HTMLTextAreaElement>(null);
 
   const autoFormat = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -40,23 +40,26 @@ export const MessageDisplay = (props: Props) => {
         <br />
         <br />
       </label>
-      <TextBtn
+      <SolidBtn
+        filled
+        style={{ marginBottom: 8 }}
         onClick={() => {
           if (box.current) setOldHeight(box.current.style.height);
           setViewingMD(!viewingMD);
         }}
       >
         View {viewingMD ? "Raw" : "MD"}
-      </TextBtn>
+      </SolidBtn>
       {viewingMD ? (
-        <MarkdownRenderer text={value} />
+        <MarkdownRenderer text={value} height={oldHeight} />
       ) : (
         <textarea
           ref={box}
           value={value}
           style={{ height: oldHeight }}
           onChange={(e) => setValue(e.target.value)}
-          onKeyDownCapture={(e) => autoFormat(e)}
+          onKeyDown={(e) => autoFormat(e)}
+          maxLength={6000}
         />
       )}
     </div>
