@@ -1,3 +1,5 @@
+import { wrapChars } from "../constants";
+
 type EI = React.KeyboardEvent<HTMLTextAreaElement>;
 interface FI {
   val: string;
@@ -22,7 +24,7 @@ export const inputReducer = (key: string, event: EI): FR | undefined => {
     case "Shift Tab":
       break;
     case "Backspace":
-      break;
+      return handleBackspace(e);
     case "Control b":
       return handleB(e);
     case "Control i":
@@ -61,27 +63,23 @@ const surround = (e: FI, surr: string, endWrap?: string) => {
     e.val.substring(e.selEnd)
   );
 };
-/**
- * Need number of spaces in previous line
- * Index of last line would be nice
- */
+
 const handleEnter = (e: FI): FR => {
-  let i = 0;
-  let count = 0;
-  let lineNum = 0;
-  //Gets the line number of the selected line
-  for (; i <= e.selStart; i++) {
-    e.val[i] === "\n" ? lineNum++ : (lineNum += 0);
+  console.log(e.selStart);
+  let lines = e.val.split("\n");
+  let lineIx = 0;
+  let charIx = 0;
+  while (charIx < e.selStart && charIx < e.val.length) {
+    lineIx += e.val[charIx] === "\n" ? 1 : 0;
+    charIx++;
   }
-  i++;
-  const pl = e.val.split("\n")[lineNum];
-  const spaces = pl.match(/\s*(?=\S)/);
-  const added = spaces ? `\n${spaces[0]}` : "\n";
-  return [
-    e.val.substring(0, i + pl.length) +
-      added +
-      e.val.substring(count + added.length + pl.length),
-  ];
+  const spaces = lines[lineIx].match(/\s*(?=(\S|\n))/);
+  const pre = spaces ? spaces[0] : "";
+  lines = lines.slice(0, lineIx + 1).concat([pre, ...lines.slice(lineIx + 1)]);
+  const startingIx =
+    e.val.indexOf(lines[lineIx]) + lines[lineIx].length + pre.length + 1;
+
+  return [lines.join("\n"), startingIx, startingIx];
 };
 
 const handleTab = (e: FI): FR => {
@@ -95,7 +93,34 @@ const handleTab = (e: FI): FR => {
 /**
  * If wrapped by special characters (Such as brackets or quotes), delete both sides. Else do a normal backspace.
  */
-const handleBackspace = (e: FI) => {};
+const handleBackspace = (e: FI): FR => {
+  const fourChar = e.val.substring(e.selStart - 2, e.selEnd + 2); //Need to check if these vals exist first, causing bugs with deletion (Not too major, though)
+  const twoChar = e.val.substring(e.selStart - 1, e.selEnd + 1);
+  if (e.selStart !== e.selEnd) {
+    return [
+      e.val.substring(0, e.selStart) + e.val.substring(e.selEnd),
+      e.selStart,
+      e.selStart,
+    ];
+  } else if (wrapChars.includes(fourChar)) {
+    return [
+      e.val.substring(0, e.selStart - 2) + e.val.substring(e.selEnd + 2),
+      e.selStart - 2,
+      e.selStart - 2,
+    ];
+  } else if (wrapChars.includes(twoChar)) {
+    return [
+      e.val.substring(0, e.selStart - 1) + e.val.substring(e.selEnd + 1),
+      e.selStart - 1,
+      e.selStart - 1,
+    ];
+  } else
+    return [
+      e.val.substring(0, e.selStart - 1) + e.val.substring(e.selStart),
+      e.selStart - 1,
+      e.selStart - 1,
+    ];
+};
 
 //#region Simple Formats
 const handleB = (e: FI): FR => {
