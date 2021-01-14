@@ -2,10 +2,13 @@
   border: 1px solid var(--red);
   background: var(--main-bg);
   border-radius: 20px;
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
   margin-top: 50px;
-  padding: 10px 15px;
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 
 .message-list * {

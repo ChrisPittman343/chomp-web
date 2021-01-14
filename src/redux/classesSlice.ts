@@ -25,7 +25,7 @@ export default function classesReducer(
       return [action.payload.class, ...state];
     }
     case "classes/classesLoaded": {
-      return updateStateNoRepeats(state, [...action.payload.classes]);
+      return updateStateNoRepeats(state, action.payload.classes);
     }
     case "classes/onlyClassLoaded": {
       return updateStateNoRepeats(state, [action.payload.class]);

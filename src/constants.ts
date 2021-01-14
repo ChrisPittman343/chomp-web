@@ -15,8 +15,8 @@ export const BASE_URL = isServedLocally
   : "https://us-central1-chomp-chat.cloudfunctions.net/widgets";
 
 export const actionKeys = [
-  "Enter",
-  //"Backspace",
+  //"Enter", <- This shit is actually so annoying to do
+  "Backspace",
   "Control b",
   "Control i",
   "`",
@@ -31,3 +31,5 @@ export const actionKeys = [
   "Control Tab",
   "Shift Tab",
 ];
+
+export const wrapChars = ["{}", "[]", '""', "****", "**", "``", "$$"];

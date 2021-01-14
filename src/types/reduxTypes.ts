@@ -61,6 +61,7 @@ export interface ThreadLoadedAction {
   type: "threads/threadLoaded";
   payload: {
     thread: Thread;
+    messages: Message[];
   };
 }
 

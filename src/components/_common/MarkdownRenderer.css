@@ -1,8 +1,11 @@
 .markdown-renderer {
+  width: 100%;
   line-height: 1.5;
   overflow-x: hidden;
   overflow-y: hidden;
   font-size: 17px;
+  padding: 2px 0px;
+  margin-bottom: 4px;
 }
 
 .markdown-renderer pre {

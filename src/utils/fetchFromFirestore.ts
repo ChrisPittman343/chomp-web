@@ -81,18 +81,30 @@ export async function fetchClassDataFromFirestore(classId: string) {
 export async function fetchThreadFromFirestore(
   classId: string,
   threadId: string
-): Promise<any> {
-  //Fix the return type (Throws errors, too lazy to fix)
+): Promise<{ thread: Thread; messages: Message[] }> {
   const db = firebase.firestore();
 
-  return db
+  const thread = await db
+    .collection("classes")
+    .doc(classId)
+    .collection("threads")
+    .doc(threadId)
+    .get()
+    .then((res) => {
+      return res.data() as Thread;
+    })
+    .catch((err) => {
+      throw err;
+    });
+
+  const messages = await db
     .collection("classes")
     .doc(classId)
     .collection("threads")
     .doc(threadId)
     .collection("messages")
     .orderBy("sent", "desc")
-    .limit(15)
+    .limit(25)
     .get()
     .then((res) => {
       return res.empty ? [] : res.docs.map((doc) => doc.data() as Message);
@@ -100,6 +112,7 @@ export async function fetchThreadFromFirestore(
     .catch((err) => {
       throw err;
     });
+  return { thread, messages };
 }
 
 /**

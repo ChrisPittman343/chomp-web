@@ -1,23 +1,40 @@
 import React, { useState } from "react";
 import "./Message.css";
 import { MarkdownRenderer } from "../_common/MarkdownRenderer";
-import { getMessageById, getMessagesByParentId } from "../../redux/selectors";
+import { getMessageById, getMessagesByMessage } from "../../redux/selectors";
 import { useSelector } from "react-redux";
+import { creationDateToString } from "../../utils/creationDateToString";
+import { MessageDisplay } from "../createThread/MessageDisplay";
 
 interface Props {
+  id: string;
   parentId: string;
   nestingLevel?: number;
 }
 
-export const Message = ({ nestingLevel = 0, parentId }: Props) => {
+export const Message = ({ nestingLevel = 0, parentId, id }: Props) => {
   const [collapse, setCollapse] = useState(false);
+  const [reply, setReply] = useState("");
+  const [replying, setReplying] = useState(false);
   const collapseState = collapse ? "collapsed" : "";
-  const message = useSelector(getMessageById(parentId))!; //Check this assertion
-  const messages = useSelector(getMessagesByParentId(message.id));
+  const message = useSelector(getMessageById(id));
+  const messages = useSelector(getMessagesByMessage(message));
   return message ? (
     <div className="message">
+      <div className="message-ctx tiny-txt">
+        Sent by {message.email} {creationDateToString(message.sent)}
+      </div>
       <MarkdownRenderer text={message.message} />
-      {nestingLevel <= 12 && messages.length > 0 ? (
+      <div className="action-btns">
+        <button
+          className="underline-btn tiny-txt"
+          style={{ opacity: 0.75 }}
+          onClick={() => setReplying(true)}
+        >
+          Reply
+        </button>
+      </div>
+      {nestingLevel <= 12 && (replying || messages.length > 0) ? (
         <div className={`replies-container ${collapseState}`}>
           <div
             className="nesting-bar-container"
@@ -26,12 +43,22 @@ export const Message = ({ nestingLevel = 0, parentId }: Props) => {
             <div className="nesting-bar"></div>
           </div>
           <div className="replies">
-            {messages.map((m, mIx) => (
-              <Message
-                key={`${nestingLevel} ${parentId}`}
-                parentId={message.id}
-              />
-            ))}
+            {replying ? (
+              <MessageDisplay value={reply} setValue={setReply} />
+            ) : (
+              <></>
+            )}
+            {messages.length > 0 ? (
+              messages.map((m, mIx) => (
+                <Message
+                  key={`${nestingLevel} ${mIx}`}
+                  parentId={message.id}
+                  id={m.id}
+                />
+              ))
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       ) : (

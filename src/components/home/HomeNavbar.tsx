@@ -13,11 +13,10 @@ export const HomeNavbar = (props: Props) => {
       <Link to="/classes">
         <ChompTitle />
       </Link>
-      <Link to="/">
-        <SolidBtn>Landing</SolidBtn>
-      </Link>
       <Link to="/classes/create-class">
-        <SolidBtn>Create Class</SolidBtn>
+        <SolidBtn filled style={{ marginLeft: 20 }}>
+          Create Class
+        </SolidBtn>
       </Link>
     </NavbarContainer>
   );

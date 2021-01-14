@@ -1,10 +1,18 @@
+.message-display {
+  width: 100%;
+}
+
+.disp {
+  margin: auto;
+  width: 98%;
+}
+
 .message-display textarea {
-  margin-left: -4px;
+  margin-left: -3px;
   resize: vertical;
   border: 1px solid var(--main-press);
-  padding: 5px;
-  width: 99.4%;
-  min-height: 350px;
+  width: 100%;
+  min-height: 200px;
   max-height: 2500px;
   font-size: 17px;
   background: var(--main-bg);

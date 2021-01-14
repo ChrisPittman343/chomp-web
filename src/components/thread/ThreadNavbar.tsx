@@ -15,9 +15,13 @@ export const ThreadNavbar = (props: Props) => {
       <Link to="/classes">
         <ChompTitle />
       </Link>
-      <span className="big-txt bold" style={{ paddingLeft: 20 }}>
+      <Link
+        to={`/class/c/${thread.classId}`}
+        className="big-txt bold"
+        style={{ marginLeft: 20, textDecoration: "underline" }}
+      >
         {thread.className}
-      </span>
+      </Link>
     </NavbarContainer>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { CSSProperties, useContext } from "react";
 import TeX from "@matejmazur/react-katex";
 import math from "remark-math";
 import ReactMarkdown from "react-markdown";
@@ -10,6 +10,7 @@ import "./MarkdownRenderer.css";
 interface Props {
   text: string;
   height?: string;
+  style?: CSSProperties;
 }
 
 export const MarkdownRenderer = (props: Props) => {
@@ -21,11 +22,15 @@ export const MarkdownRenderer = (props: Props) => {
   };
 
   return (
-    <div className="markdown-renderer" style={{ minHeight: props.height }}>
+    <div
+      className="markdown-renderer"
+      style={{ minHeight: props.height, ...props.style }}
+    >
       <ReactMarkdown
         plugins={[math, remarkGfm]}
         renderers={renderers}
         children={props.text}
+        allowDangerousHtml={false}
       />
     </div>
   );

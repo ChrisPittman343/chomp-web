@@ -13,10 +13,10 @@ export const ThreadInfo = (props: Props) => {
   return (
     <div className="thread-info">
       <div className="thread-context small-txt">
-        <span>{`Created by ${thread.email}`}</span>
-        <span style={{ paddingLeft: 20 }}>{`Posted ${creationDateToString(
+        <div>{`Created by ${thread.email}`}</div>
+        <div style={{ paddingLeft: 20 }}>{`Posted ${creationDateToString(
           thread.created
-        )}`}</span>
+        )}`}</div>
       </div>
       <div className="thread-description">
         <div className="thread-title big-txt bold">{thread.title}</div>

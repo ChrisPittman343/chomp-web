@@ -1,11 +1,12 @@
 import { Thread } from "../types/firestoreTypes";
 import { ReduxAction } from "../types/reduxTypes";
+import { fetchThreadFromFirestore } from "../utils/fetchFromFirestore";
 import {
   createThreadFromFirestore,
   NewThreadInput,
 } from "../utils/firestoreFunction";
 import { updateStateNoRepeats } from "../utils/updateStateNoRepeats";
-import { addThreadCreator } from "./actionCreators";
+import { addThreadCreator, loadThreadCreator } from "./actionCreators";
 import { RootState } from "./reducer";
 
 const initialState: Thread[] = [];
@@ -20,10 +21,10 @@ export default function threadsReducer(
       return updateStateNoRepeats(state, action.payload.threads);
     }
     case "threads/threadAdded": {
-      return [action.payload.thread, ...state];
+      return updateStateNoRepeats(state, [action.payload.thread]);
     }
     case "threads/threadLoaded": {
-      return state;
+      return updateStateNoRepeats(state, [action.payload.thread]);
     }
     default: {
       return state;
@@ -40,8 +41,20 @@ export const addNewThread = (thread: NewThreadInput) => {
   ) {
     createThreadFromFirestore(thread)
       .then((t) => {
-        console.log(t);
         dispatch(addThreadCreator(t));
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const loadThread = (classId: string, threadId: string) => {
+  return async function loadThreadThunk(
+    dispatch: any,
+    getState: () => RootState
+  ) {
+    fetchThreadFromFirestore(classId, threadId)
+      .then(({ thread, messages }) => {
+        dispatch(loadThreadCreator(thread, messages));
       })
       .catch((err) => console.log(err));
   };

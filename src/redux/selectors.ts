@@ -1,3 +1,4 @@
+import { Message } from "../types/firestoreTypes";
 import { RootState } from "./reducer";
 
 //#region Classes Selector
@@ -29,6 +30,11 @@ export const getMessageById = (id: string) => (store: RootState) =>
  */
 export const getMessagesByParentId = (parentId: string) => (store: RootState) =>
   store.messages.filter((m) => m.parentId === parentId);
+/**
+ * @returns parent message of that ID ONLY (Can be a reply to another message)
+ */
+export const getMessagesByMessage = (message?: Message) => (store: RootState) =>
+  store.messages.filter((m) => m.parentId === message?.id);
 
 //#endregion
 

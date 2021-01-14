@@ -34,7 +34,7 @@ export interface Message {
   isTop: boolean;
   email: string;
   message: string;
-  sent: string;
+  sent: firebase.firestore.Timestamp;
 }
 
 export interface Roster {

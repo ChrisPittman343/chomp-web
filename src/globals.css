@@ -1,5 +1,5 @@
 .tiny-txt {
-  font-size: 12px;
+  font-size: 12px !important;
 }
 
 .small-txt {
@@ -33,4 +33,10 @@
 }
 .underline {
   text-decoration: underline;
+}
+
+.underline-btn {
+  padding: 0;
+  text-decoration: underline;
+  font-weight: 400;
 }
