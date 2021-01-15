@@ -8,28 +8,22 @@ interface FI {
 }
 type FR = [string, number?, number?];
 
-export const inputReducer = (key: string, event: EI): FR | undefined => {
+export const inputReducer = (key: string, event: EI): FR => {
   const e: FI = {
     val: event.currentTarget.value,
     selStart: event.currentTarget.selectionStart,
     selEnd: event.currentTarget.selectionEnd,
   };
   switch (key) {
-    case "Enter":
-      return handleEnter(e);
     case "Tab":
       return handleTab(e);
-    case "Control Tab":
-      break;
-    case "Shift Tab":
-      break;
     case "Backspace":
       return handleBackspace(e);
     case "Control b":
       return handleB(e);
     case "Control i":
       return handleI(e);
-    case "`":
+    case "Control `":
       return handleInlineCode(e);
     case "Control Shift ~":
       return handleCodeBlock(e);

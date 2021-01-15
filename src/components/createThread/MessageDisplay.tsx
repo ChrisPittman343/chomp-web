@@ -3,7 +3,9 @@ import { actionKeys } from "../../constants";
 import { inputReducer } from "../../utils/autoFormatMarkdown";
 import { SolidBtn } from "../_common/buttons/SolidBtn";
 import { MarkdownRenderer } from "../_common/MarkdownRenderer";
+import { StyledToggle } from "../_common/StyledToggle";
 import "./MessageDisplay.css";
+
 interface Props {
   value: string;
   setValue: Function;
@@ -24,7 +26,6 @@ export const MessageDisplay = (props: Props) => {
     if (!box.current || !actionKeys.includes(key)) return;
     e.preventDefault();
     const res = inputReducer(key, e);
-    if (!res) return;
     const [newValue, selectStart, selectEnd] = res;
     box.current.value = newValue;
     setValue(newValue);
@@ -36,21 +37,13 @@ export const MessageDisplay = (props: Props) => {
 
   return (
     <div className="message-display" style={{ ...props.style }}>
-      <label htmlFor="thread message" className="bold normal-txt">
-        Message
-        <br />
-        <br />
-      </label>
-      <SolidBtn
-        filled
-        style={{ marginBottom: 8 }}
-        onClick={() => {
+      <StyledToggle
+        setToggle={(bool: boolean) => {
           if (box.current) setOldHeight(box.current.style.height);
-          setViewingMD(!viewingMD);
+          setViewingMD(bool);
         }}
-      >
-        View {viewingMD ? "Raw" : "MD"}
-      </SolidBtn>
+        style={{ padding: "0 0 4px 5px" }}
+      />
       <div className="disp">
         {viewingMD ? (
           <MarkdownRenderer text={value} height={oldHeight} />
@@ -62,7 +55,7 @@ export const MessageDisplay = (props: Props) => {
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={(e) => autoFormat(e)}
             maxLength={6000}
-            placeholder="Go ahead, type your message!"
+            placeholder="Type your message here."
           />
         )}
       </div>

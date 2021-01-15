@@ -59,7 +59,12 @@ export const CreateThread = (props: Props) => {
           required
           children="Thread Title"
         />
-        <MessageDisplay value={message} setValue={setMessage} />
+        <div>
+          <label htmlFor="thread message" className="bold normal-txt">
+            Message <br /> <br />
+          </label>
+          <MessageDisplay value={message} setValue={setMessage} />{" "}
+        </div>
         <div className="tag-section">
           <div className="bold" style={{ paddingBottom: 10 }}>
             Tags

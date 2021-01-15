@@ -5,6 +5,7 @@ import { getMessageById, getMessagesByMessage } from "../../redux/selectors";
 import { useSelector } from "react-redux";
 import { creationDateToString } from "../../utils/creationDateToString";
 import { MessageDisplay } from "../createThread/MessageDisplay";
+import { ReplySection } from "./ReplySection";
 
 interface Props {
   id: string;
@@ -14,7 +15,6 @@ interface Props {
 
 export const Message = ({ nestingLevel = 0, parentId, id }: Props) => {
   const [collapse, setCollapse] = useState(false);
-  const [reply, setReply] = useState("");
   const [replying, setReplying] = useState(false);
   const collapseState = collapse ? "collapsed" : "";
   const message = useSelector(getMessageById(id));
@@ -26,13 +26,20 @@ export const Message = ({ nestingLevel = 0, parentId, id }: Props) => {
       </div>
       <MarkdownRenderer text={message.message} />
       <div className="action-btns">
-        <button
-          className="underline-btn tiny-txt"
-          style={{ opacity: 0.75 }}
-          onClick={() => setReplying(true)}
-        >
-          Reply
-        </button>
+        {!replying ? (
+          <button
+            className="underline-btn tiny-txt"
+            style={{ opacity: 0.75 }}
+            onClick={() => {
+              setCollapse(false);
+              setReplying(true);
+            }}
+          >
+            Reply
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
       {nestingLevel <= 12 && (replying || messages.length > 0) ? (
         <div className={`replies-container ${collapseState}`}>
@@ -44,7 +51,7 @@ export const Message = ({ nestingLevel = 0, parentId, id }: Props) => {
           </div>
           <div className="replies">
             {replying ? (
-              <MessageDisplay value={reply} setValue={setReply} />
+              <ReplySection setReplying={setReplying} parentId={message.id} />
             ) : (
               <></>
             )}

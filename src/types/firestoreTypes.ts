@@ -29,8 +29,10 @@ export interface Thread {
 
 //For threads and messages, having a subclass of anonymous_X might be a good idea
 export interface Message {
-  id: string;
+  classId: string;
+  threadId: string;
   parentId: string;
+  id: string;
   isTop: boolean;
   email: string;
   message: string;

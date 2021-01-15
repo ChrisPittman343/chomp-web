@@ -1,0 +1,12 @@
+.reply-section {
+  margin-bottom: 20px;
+}
+
+.reply-actions {
+  width: 97%;
+  padding-top: 4px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
