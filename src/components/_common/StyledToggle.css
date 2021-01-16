@@ -1,5 +1,5 @@
 .react-toggle--checked .react-toggle-track {
-  background-color: var(--red);
+  background-color: var(--bright-red);
 }
 
 .react-toggle--checked .react-toggle-thumb {

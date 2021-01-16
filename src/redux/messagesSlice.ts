@@ -1,6 +1,12 @@
 import { Message } from "../types/firestoreTypes";
 import { ReduxAction } from "../types/reduxTypes";
+import {
+  createMessageFromFirestore,
+  NewMessageInput,
+} from "../utils/firestoreFunction";
 import { updateStateNoRepeats } from "../utils/updateStateNoRepeats";
+import { addMessageCreator, addThreadCreator } from "./actionCreators";
+import { RootState } from "./reducer";
 
 const initialState: Message[] = [];
 
@@ -14,10 +20,25 @@ export default function messagesReducer(
       return updateStateNoRepeats(state, action.payload.messages);
     }
     case "messages/messageAdded": {
-      return state;
+      return updateStateNoRepeats(state, [action.payload.message]);
     }
     default: {
       return state;
     }
   }
 }
+
+// THUNKS
+
+export const addNewMessage = (message: NewMessageInput) => {
+  return async function addNewMessageThunk(
+    dispatch: any,
+    getState: () => RootState
+  ) {
+    createMessageFromFirestore(message)
+      .then((m) => {
+        dispatch(addMessageCreator(m));
+      })
+      .catch((err) => console.log(err));
+  };
+};

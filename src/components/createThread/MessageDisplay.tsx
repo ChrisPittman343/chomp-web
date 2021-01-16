@@ -42,7 +42,7 @@ export const MessageDisplay = (props: Props) => {
           if (box.current) setOldHeight(box.current.style.height);
           setViewingMD(bool);
         }}
-        style={{ padding: "0 0 4px 5px" }}
+        style={{ padding: "0 0 4px 13px" }}
       />
       <div className="disp">
         {viewingMD ? (

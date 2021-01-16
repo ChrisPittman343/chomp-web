@@ -1,4 +1,5 @@
 .message {
+  margin-bottom: 20px;
 }
 
 .message-ctx {
@@ -16,7 +17,7 @@
 
 .nesting-bar-container {
   width: 20px;
-  margin-right: 15px;
+  margin-right: 20px;
 }
 
 .nesting-bar {

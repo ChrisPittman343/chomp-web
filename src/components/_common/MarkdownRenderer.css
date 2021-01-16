@@ -39,3 +39,18 @@
 .markdown-renderer h6 {
   font-size: 18px;
 }
+
+.markdown-renderer table {
+  border: 2px solid var(--main-press);
+}
+
+.markdown-renderer td,
+.markdown-renderer th {
+  padding: 3px;
+  border: 1px solid var(--main-press);
+}
+
+.markdown-renderer img {
+  max-width: 700px;
+  max-height: 700px;
+}

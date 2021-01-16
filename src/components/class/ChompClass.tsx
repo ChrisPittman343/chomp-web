@@ -32,9 +32,11 @@ export const ChompClass = (props: Props) => {
         <FilterOptions classData={currentClass} />
         <ul className="threads-list">
           <NewThread />
-          {threads.map((t, tIx) => (
-            <ThreadCard threadId={t.id} key={tIx} />
-          ))}
+          {threads
+            .sort((a, b) => b.created.seconds - a.created.seconds)
+            .map((t, tIx) => (
+              <ThreadCard threadId={t.id} key={tIx} />
+            ))}
         </ul>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import React, { CSSProperties, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { createMessageFromFirestore } from "../../utils/firestoreFunction";
+import { addNewMessage } from "../../redux/messagesSlice";
 import { MessageDisplay } from "../createThread/MessageDisplay";
 import { SolidBtn } from "../_common/buttons/SolidBtn";
 import { TextBtn } from "../_common/buttons/TextBtn";
-import { StyledToggle } from "../_common/StyledToggle";
 
 import "./ReplySection.css";
 
@@ -12,20 +12,26 @@ interface Props {
   style?: CSSProperties;
   setReplying: Function;
   parentId: string;
+  cancellable?: boolean;
 }
 
-export const ReplySection = (props: Props) => {
+export const ReplySection = ({ cancellable = true, ...props }: Props) => {
   //@ts-ignore
   const { classId, threadId } = useParams();
+  const dispatch = useDispatch();
   const [reply, setReply] = useState("");
 
   const submitReply = () => {
-    createMessageFromFirestore({
-      classId,
-      threadId,
-      parentId: props.parentId,
-      message: reply,
-    });
+    dispatch(
+      addNewMessage({
+        classId,
+        threadId,
+        parentId: props.parentId,
+        message: reply,
+      })
+    );
+    props.setReplying(false);
+    setReply("");
   };
 
   return (
@@ -36,14 +42,18 @@ export const ReplySection = (props: Props) => {
         style={{ ...props.style }}
       />
       <div className="reply-actions">
-        <TextBtn
-          style={{ marginRight: 10, fontSize: 15 }}
-          onClick={() => {
-            props.setReplying(false);
-          }}
-        >
-          Cancel
-        </TextBtn>
+        {cancellable ? (
+          <TextBtn
+            style={{ marginRight: 10, fontSize: 15 }}
+            onClick={() => {
+              props.setReplying(false);
+            }}
+          >
+            Cancel
+          </TextBtn>
+        ) : (
+          <></>
+        )}
         <SolidBtn
           style={{ fontSize: 15, padding: "0 6px 2px 6px" }}
           filled

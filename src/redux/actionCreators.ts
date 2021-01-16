@@ -63,7 +63,7 @@ export const loadThreadCreator = (
 
 //#region Messages Action Creators
 
-export const messageAdded = (message: Message): MessageAddedAction => {
+export const addMessageCreator = (message: Message): MessageAddedAction => {
   return {
     type: "messages/messageAdded",
     payload: { message },

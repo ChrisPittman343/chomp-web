@@ -27,16 +27,28 @@ export const Message = ({ nestingLevel = 0, parentId, id }: Props) => {
       <MarkdownRenderer text={message.message} />
       <div className="action-btns">
         {!replying ? (
-          <button
-            className="underline-btn tiny-txt"
-            style={{ opacity: 0.75 }}
-            onClick={() => {
-              setCollapse(false);
-              setReplying(true);
-            }}
-          >
-            Reply
-          </button>
+          <>
+            <button
+              className="underline-btn tiny-txt"
+              style={{ opacity: 0.75 }}
+              onClick={() => {
+                setCollapse(false);
+                setReplying(true);
+              }}
+            >
+              Reply
+            </button>
+            <button
+              className="underline-btn tiny-txt"
+              style={{ opacity: 0.75, marginLeft: 9 }}
+              onClick={() => {
+                setCollapse(false);
+                setReplying(true);
+              }}
+            >
+              More
+            </button>
+          </>
         ) : (
           <></>
         )}
@@ -56,13 +68,15 @@ export const Message = ({ nestingLevel = 0, parentId, id }: Props) => {
               <></>
             )}
             {messages.length > 0 ? (
-              messages.map((m, mIx) => (
-                <Message
-                  key={`${nestingLevel} ${mIx}`}
-                  parentId={message.id}
-                  id={m.id}
-                />
-              ))
+              messages
+                .sort((a, b) => b.sent.seconds - a.sent.seconds)
+                .map((m, mIx) => (
+                  <Message
+                    key={`${nestingLevel} ${mIx}`}
+                    parentId={message.id}
+                    id={m.id}
+                  />
+                ))
             ) : (
               <></>
             )}
