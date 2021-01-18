@@ -26,7 +26,7 @@ export const ChompThread = (props: Props) => {
         <ThreadNavbar thread={thread} />
         <div className="thread-page-content">
           <ThreadInfo thread={thread} />
-          <MessagesSection />
+          <MessagesSection thread={thread} />
         </div>
       </div>
       <Footer />

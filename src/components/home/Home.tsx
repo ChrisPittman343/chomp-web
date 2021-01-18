@@ -16,7 +16,7 @@ export const Home = (props: Props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     window.scroll({ top: 0 });
-    if (!classes || classes.length === 0) dispatch(loadAllClasses());
+    dispatch(loadAllClasses());
   }, []);
 
   return (

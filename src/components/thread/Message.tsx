@@ -4,56 +4,71 @@ import { MarkdownRenderer } from "../_common/MarkdownRenderer";
 import { getMessageById, getMessagesByMessage } from "../../redux/selectors";
 import { useSelector } from "react-redux";
 import { creationDateToString } from "../../utils/creationDateToString";
-import { MessageDisplay } from "../createThread/MessageDisplay";
 import { ReplySection } from "./ReplySection";
+import { resolveThread } from "../../utils/updateFirestore";
 
 interface Props {
   id: string;
+  threadId: string;
   parentId: string;
+  answerId?: string;
   nestingLevel?: number;
 }
 
-export const Message = ({ nestingLevel = 0, parentId, id }: Props) => {
+export const Message = ({
+  nestingLevel = 0,
+  parentId,
+  answerId,
+  id,
+  threadId,
+}: Props) => {
   const [collapse, setCollapse] = useState(false);
   const [replying, setReplying] = useState(false);
   const collapseState = collapse ? "collapsed" : "";
   const message = useSelector(getMessageById(id));
   const messages = useSelector(getMessagesByMessage(message));
+  const isAnswer = answerId === message?.id;
   return message ? (
     <div className="message">
       <div className="message-ctx tiny-txt">
         Sent by {message.email} {creationDateToString(message.sent)}
       </div>
-      <MarkdownRenderer text={message.message} />
+      <MarkdownRenderer
+        text={message.message}
+        style={{
+          borderLeft: isAnswer ? `4px solid var(--green)` : "",
+          paddingLeft: isAnswer ? 5 : "",
+        }}
+      />
       <div className="action-btns">
+        <span style={{ paddingRight: 3 }}>69</span>
+        <button id="upvote">▲</button>
+        <button id="downvote">▼</button>
+        <button
+          id="resolve"
+          className="bold"
+          onClick={() => resolveThread(threadId, id)}
+          style={{
+            color: isAnswer ? "green" : "var(--main-color)",
+          }}
+        >
+          ✔
+        </button>
         {!replying ? (
-          <>
-            <button
-              className="underline-btn tiny-txt"
-              style={{ opacity: 0.75 }}
-              onClick={() => {
-                setCollapse(false);
-                setReplying(true);
-              }}
-            >
-              Reply
-            </button>
-            <button
-              className="underline-btn tiny-txt"
-              style={{ opacity: 0.75, marginLeft: 9 }}
-              onClick={() => {
-                setCollapse(false);
-                setReplying(true);
-              }}
-            >
-              More
-            </button>
-          </>
+          <button
+            id="reply"
+            onClick={() => {
+              setCollapse(false);
+              setReplying(true);
+            }}
+          >
+            ➥
+          </button>
         ) : (
           <></>
         )}
       </div>
-      {nestingLevel <= 12 && (replying || messages.length > 0) ? (
+      {nestingLevel <= 10 && (replying || messages.length > 0) ? (
         <div className={`replies-container ${collapseState}`}>
           <div
             className="nesting-bar-container"
@@ -75,6 +90,8 @@ export const Message = ({ nestingLevel = 0, parentId, id }: Props) => {
                     key={`${nestingLevel} ${mIx}`}
                     parentId={message.id}
                     id={m.id}
+                    threadId={threadId}
+                    answerId={answerId}
                   />
                 ))
             ) : (

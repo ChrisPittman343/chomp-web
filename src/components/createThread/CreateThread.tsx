@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { loadOnlyClass } from "../../redux/classesSlice";
 import { getClassById } from "../../redux/selectors";
 import { addNewThread } from "../../redux/threadsSlice";
 import { FormField } from "../createClass/FormField";
 import { SolidBtn } from "../_common/buttons/SolidBtn";
+import { TextBtn } from "../_common/buttons/TextBtn";
 import { Spinner } from "../_common/Spinner";
 import "./CreateThread.css";
 import { MessageDisplay } from "./MessageDisplay";
@@ -22,7 +23,7 @@ export const CreateThread = (props: Props) => {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [tags, setTags] = useState([] as string[]);
-  const [preview, setPreview] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(loadOnlyClass(classId));
@@ -30,12 +31,15 @@ export const CreateThread = (props: Props) => {
 
   const createNewThread = async () => {
     dispatch(
-      addNewThread({
-        classId: classId,
-        title: title.trim(),
-        message: message.trim(),
-        tags,
-      })
+      addNewThread(
+        {
+          classId: classId,
+          title: title.trim(),
+          message: message.trim(),
+          tags,
+        },
+        history
+      )
     );
   };
 
@@ -83,9 +87,15 @@ export const CreateThread = (props: Props) => {
             still count towards participation.
           </span>
         </div>
-        <SolidBtn filled onClick={async () => await createNewThread()}>
-          Create Thread
-        </SolidBtn>
+        <div className="form-actions">
+          <Link to={`/class/c/${classId}`}>
+            {" "}
+            <TextBtn>Cancel</TextBtn>
+          </Link>
+          <SolidBtn filled onClick={async () => await createNewThread()}>
+            Create Thread
+          </SolidBtn>
+        </div>
       </div>
     </div>
   ) : (

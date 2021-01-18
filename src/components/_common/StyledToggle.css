@@ -1,36 +1,50 @@
-.react-toggle--checked .react-toggle-track {
-  background-color: var(--bright-red);
+.styled-toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.react-toggle--checked .react-toggle-thumb {
-  left: 27px;
-  border-color: transparent;
+.slider-body {
+  display: flex;
+  padding: 3px;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 3px;
+  width: 42px;
+  height: 16px;
+  transition-property: background;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+  display: inline-flex;
+  margin-top: 4px;
 }
 
-.react-toggle-thumb {
-  border-color: transparent;
+.slider-body:hover {
+  cursor: pointer;
 }
 
-.react-toggle--unchecked .react-toggle-thumb {
-  left: 27px;
+.slider-body.slider-off {
+  background: var(--red);
 }
 
-.react-toggle-track {
-  background-color: var(--light-coal);
+.slider-body.slider-on {
+  background: var(--main-press);
 }
 
-.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background-color: var(--dark-red);
+.slider-ball {
+  border-radius: 3px;
+  background: var(--white);
+  width: 24px;
+  height: 18px;
+  transition-property: transform;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
 }
 
-.react-toggle--focus .react-toggle-thumb {
-  -webkit-box-shadow: 0px 0px 3px 2px var(--amber);
-  -moz-box-shadow: 0px 0px 3px 2px var(--amber);
-  box-shadow: 0px 0px 2px 3px var(--amber);
+.slider-on > .slider-ball {
+  transform: translateX(px);
 }
 
-.react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
-  -webkit-box-shadow: 0px 0px 5px 5px var(--amber);
-  -moz-box-shadow: 0px 0px 5px 5px var(--amber);
-  box-shadow: 0px 0px 5px 5px var(--amber);
+.slider-off > .slider-ball {
+  transform: translateX(19px);
 }

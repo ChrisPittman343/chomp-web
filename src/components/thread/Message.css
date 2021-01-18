@@ -44,6 +44,15 @@
   justify-content: flex-start;
 }
 
+.action-btns button {
+  opacity: 0.5;
+  transition: opacity 0.1s ease-in;
+}
+
+.action-btns button:hover {
+  opacity: 1;
+}
+
 /* COLLAPSE STYLES */
 
 .collapsed > .nesting-bar-container {

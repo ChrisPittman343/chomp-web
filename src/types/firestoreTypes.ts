@@ -19,11 +19,12 @@ export interface Thread {
   title: string;
   message: string;
   tags?: string[];
-  status: {
-    numMessages: number;
-    isResolved: boolean;
-    isClosed: boolean;
-  };
+  numMessages: number;
+  answerId?: string;
+  isClosed: boolean;
+  score: number;
+  upvoters: string[];
+  downvoters: string[];
   created: firebase.firestore.Timestamp;
 }
 
@@ -36,6 +37,9 @@ export interface Message {
   isTop: boolean;
   email: string;
   message: string;
+  score: number;
+  upvoters: string[];
+  downvoters: string[];
   sent: firebase.firestore.Timestamp;
 }
 

@@ -1,7 +1,6 @@
 import React, { CSSProperties, useRef, useState } from "react";
 import { actionKeys } from "../../constants";
 import { inputReducer } from "../../utils/autoFormatMarkdown";
-import { SolidBtn } from "../_common/buttons/SolidBtn";
 import { MarkdownRenderer } from "../_common/MarkdownRenderer";
 import { StyledToggle } from "../_common/StyledToggle";
 import "./MessageDisplay.css";
@@ -42,7 +41,9 @@ export const MessageDisplay = (props: Props) => {
           if (box.current) setOldHeight(box.current.style.height);
           setViewingMD(bool);
         }}
-        style={{ padding: "0 0 4px 13px" }}
+        title="Editing"
+        defaultChecked={false}
+        style={{ margin: "0 0 7px 14px" }}
       />
       <div className="disp">
         {viewingMD ? (

@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "firebase/app";
 import "firebase/auth";
-import "firebase/firestore";
 import "firebase/functions";
 import { firebaseConfig } from "./constants";
 import { DarkModeContext, UserContext } from "./contexts";
@@ -28,7 +27,6 @@ auth.onAuthStateChanged((user) => {
   } else {
   }
 });
-
 firebase.functions().useEmulator("localhost", 5000);
 
 function App() {

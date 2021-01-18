@@ -7,11 +7,16 @@ import {
   fetchClassFromFirestore,
 } from "../utils/fetchFromFirestore";
 import {
+  addClassCreator,
   loadClassCreator,
   loadClassesCreator,
   loadOnlyClassCreator,
 } from "./actionCreators";
 import { updateStateNoRepeats } from "../utils/updateStateNoRepeats";
+import {
+  createClassFromFirestore,
+  NewClassInput,
+} from "../utils/firestoreFunction";
 
 const initialState: Class[] = [];
 
@@ -41,6 +46,21 @@ export default function classesReducer(
 
 //THUNKS
 
+export const addClass = (c: NewClassInput, history: any) => {
+  return async function addClassThunk(
+    dispatch: any,
+    getState: () => RootState
+  ) {
+    createClassFromFirestore(c)
+      .then((c) => {
+        dispatch(addClassCreator(c));
+        return c;
+      })
+      .then((c) => history.push(`/class/c/${c.id}`))
+      .catch((err) => console.log(err));
+  };
+};
+
 export const loadAllClasses = () => {
   return async function loadAllClassesThunk(
     dispatch: any,
@@ -63,6 +83,9 @@ export const loadOnlyClass = (classId: string) => {
   };
 };
 
+/**
+ * Called on the screen where you see the threads
+ */
 export const loadClass = (classId: string) => {
   return async function loadClassThunk(
     dispatch: any,

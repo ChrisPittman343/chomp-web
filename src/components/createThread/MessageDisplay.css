@@ -1,5 +1,6 @@
 .message-display {
   width: 100%;
+  min-height: 241px;
 }
 
 .disp {

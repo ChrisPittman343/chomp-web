@@ -3,6 +3,7 @@ import { Thread } from "../../types/firestoreTypes";
 import { creationDateToString } from "../../utils/creationDateToString";
 import "./ThreadInfo.css";
 import { MarkdownRenderer } from "../_common/MarkdownRenderer";
+import { ThreadTag } from "../_common/ThreadTag";
 
 interface Props {
   thread: Thread;
@@ -19,7 +20,13 @@ export const ThreadInfo = (props: Props) => {
         )}`}</div>
       </div>
       <div className="thread-description">
-        <div className="thread-title big-txt bold">{thread.title}</div>
+        <div className="thread-title big-txt bold">
+          {thread.title}
+          {props.thread.tags?.map((t, tIx) => (
+            <ThreadTag tag={t} key={tIx} />
+          ))}
+        </div>
+        <div className="thread-tags"></div>
         <MarkdownRenderer text={thread.message} />
       </div>
     </div>

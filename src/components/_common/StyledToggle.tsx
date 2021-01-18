@@ -1,49 +1,36 @@
-import React, { CSSProperties } from "react";
-import Toggle from "react-toggle";
-import "react-toggle/style.css";
+import React, { CSSProperties, useState } from "react";
 import "./StyledToggle.css";
 import edit from "../../images/editing_icon.svg";
 import markdown from "../../images/markdown_icon.svg";
 
 interface Props {
-  setToggle: Function;
+  title: string;
   defaultChecked?: boolean;
   style?: CSSProperties;
+  setToggle: (b: boolean) => any;
 }
 
-export const StyledToggle = ({
-  setToggle,
-  defaultChecked = true,
-  style,
-}: Props) => {
+export const StyledToggle = ({ defaultChecked = true, ...props }: Props) => {
+  const [on, setOn] = useState(defaultChecked);
+
   return (
-    <div className="styled-toggle" style={style}>
-      <label htmlFor="toggle edit mode">
-        <Toggle
-          defaultChecked={defaultChecked}
-          onChange={(e) => setToggle(!e.target.checked)}
-          icons={{
-            checked: (
-              <img
-                alt="edit"
-                src={edit}
-                width={16}
-                height={16}
-                style={{ position: "absolute", top: -2.5, left: -2 }}
-              />
-            ),
-            unchecked: (
-              <img
-                alt="edit"
-                src={markdown}
-                width={18}
-                height={18}
-                style={{ position: "absolute", top: -3.5, right: -5 }}
-              />
-            ),
+    <label htmlFor={props.title}>
+      <div className="styled-toggle" style={{ ...props.style }}>
+        <span className="bold" style={{ paddingRight: 7 }}>
+          {props.title}:
+        </span>
+        <div
+          role="checkbox"
+          aria-checked={on}
+          className={`slider-body ${on ? "slider-on" : "slider-off"}`}
+          onClick={() => {
+            setOn(!on);
+            props.setToggle(!on);
           }}
-        />
-      </label>
-    </div>
+        >
+          <div className="slider-ball" />
+        </div>
+      </div>
+    </label>
   );
 };

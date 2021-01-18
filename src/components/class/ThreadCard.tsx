@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getThreadById } from "../../redux/selectors";
 import { creationDateToString } from "../../utils/creationDateToString";
+import { ThreadTag } from "../_common/ThreadTag";
 import "./ThreadCard.css";
 
 interface Props {
@@ -12,13 +13,13 @@ export const ThreadCard = (props: Props) => {
   const thread = useSelector(getThreadById(props.threadId));
   if (!thread) return <></>;
   else {
-    const { isResolved, isClosed } = thread.status;
+    const { answerId, isClosed } = thread;
     const stateClass =
-      !isClosed && isResolved
+      !isClosed && answerId
         ? "thread-open-resolved"
-        : isClosed && !isResolved
+        : isClosed && !answerId
         ? "thread-closed-unresolved"
-        : isClosed && isResolved
+        : isClosed && answerId
         ? "thread-closed-resolved"
         : "thread-open-unresolved";
     /*
@@ -32,15 +33,18 @@ export const ThreadCard = (props: Props) => {
         <li className={`thread-card ${stateClass}`}>
           <div className="thread-head tiny-txt">
             <span className="sent-by">Created by {thread.email}</span>
-            <span className="num-messages">
-              {thread.status.numMessages} messages
-            </span>
+            <span className="num-messages">{thread.numMessages} messages</span>
             <span className="created-on">
               Posted {creationDateToString(thread.created)}
             </span>
           </div>
           <div className="thread-main med-txt">
-            <div className="thread-title">{thread.title}</div>
+            <div className="thread-title">
+              {thread.title}
+              {thread.tags?.map((t, tIx) => (
+                <ThreadTag tag={t} key={tIx} />
+              ))}
+            </div>
           </div>
         </li>
       </Link>

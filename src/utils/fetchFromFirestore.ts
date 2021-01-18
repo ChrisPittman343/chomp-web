@@ -49,14 +49,15 @@ export async function fetchClassFromFirestore(classId: string): Promise<Class> {
  * @returns array of type Thread
  */
 export async function fetchClassDataFromFirestore(classId: string) {
-  const classRef = firebase.firestore().collection("classes").doc(classId);
+  const db = firebase.firestore();
   const classData = await fetchClassFromFirestore(classId)
     .then((res) => res)
     .catch((err) => {
       throw err;
     });
-  const threadDocs = await classRef
+  const threadDocs = await db
     .collection("threads")
+    .where("classId", "==", classId)
     .orderBy("created", "desc")
     .limit(12)
     .get()
@@ -75,18 +76,15 @@ export async function fetchClassDataFromFirestore(classId: string) {
 }
 
 /**
- * Returns a few replies in a thread (Paginate when necessary).
- * @returns a tuple of [Thread, Messages[]]
+ * Returns a few replies in a thread (Paginate when necessary), plus the thread itself.
+ * @returns an object of thread and messages
  */
 export async function fetchThreadFromFirestore(
-  classId: string,
   threadId: string
 ): Promise<{ thread: Thread; messages: Message[] }> {
   const db = firebase.firestore();
 
   const thread = await db
-    .collection("classes")
-    .doc(classId)
     .collection("threads")
     .doc(threadId)
     .get()
@@ -98,13 +96,10 @@ export async function fetchThreadFromFirestore(
     });
 
   const messages = await db
-    .collection("classes")
-    .doc(classId)
-    .collection("threads")
-    .doc(threadId)
     .collection("messages")
+    .where("threadId", "==", threadId)
     .orderBy("sent", "desc")
-    .limit(25)
+    .limit(10)
     .get()
     .then((res) => {
       return res.empty ? [] : res.docs.map((doc) => doc.data() as Message);

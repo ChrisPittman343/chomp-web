@@ -1,17 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { getMessagesByParentId } from "../../redux/selectors";
+import { Thread } from "../../types/firestoreTypes";
 import { Message } from "./Message";
 import "./MessagesSection.css";
 import { ReplySection } from "./ReplySection";
 
-interface Props {}
+interface Props {
+  thread: Thread;
+}
 
 export const MessagesSection = (props: Props) => {
-  //@ts-ignore
-  const { threadId } = useParams();
-  let messages = useSelector(getMessagesByParentId(threadId));
+  const { thread } = props;
+  let messages = useSelector(getMessagesByParentId(thread.id));
   return (
     <div className="messages-section">
       <div className="new-reply">
@@ -20,7 +21,7 @@ export const MessagesSection = (props: Props) => {
         <br />
         <ReplySection
           setReplying={() => {}}
-          parentId={threadId}
+          parentId={thread.id}
           cancellable={false}
         />
       </div>
@@ -39,7 +40,13 @@ export const MessagesSection = (props: Props) => {
           messages
             .sort((a, b) => b.sent.seconds - a.sent.seconds)
             .map((m, mIx) => (
-              <Message key={`${0} ${mIx}`} parentId={threadId} id={m.id} />
+              <Message
+                key={`${0} ${mIx}`}
+                parentId={thread.id}
+                id={m.id}
+                threadId={thread.id}
+                answerId={thread.answerId}
+              />
             ))
         ) : (
           <div></div>

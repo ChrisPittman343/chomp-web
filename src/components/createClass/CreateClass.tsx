@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { SolidBtn } from "../_common/buttons/SolidBtn";
 import { TextBtn } from "../_common/buttons/TextBtn";
 import "./CreateClass.css";
@@ -10,27 +10,36 @@ import { reauthWithGoogle } from "../../utils/signInWithGoogle";
 import { HTTPSCourseInfo } from "../../types/httpsTypes";
 import { GCSelectionOverlay } from "./GCSelectionOverlay";
 import { createClassFromFirestore } from "../../utils/firestoreFunction";
+import { useDispatch } from "react-redux";
+import { addClass } from "../../redux/classesSlice";
 
 interface Props {
   user: firebase.User;
 }
 let arr: string[] = [];
 export const CreateClass = (props: Props) => {
+  const dispatch = useDispatch();
   const [accessToken, setAccessToken] = useState("");
   const [hidden, setHidden] = useState(true);
   const [name, setName] = useState("");
   const [section, setSection] = useState("");
   const [description, setDescription] = useState("");
   const [participants, setParticipants] = useState(arr);
+  const history = useHistory();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    createClassFromFirestore({
-      name: name.trim(),
-      section: section.trim(),
-      description: description.trim(),
-      participants,
-    }).then((data) => console.log(data));
+    dispatch(
+      addClass(
+        {
+          name: name.trim(),
+          section: section.trim(),
+          description: description.trim(),
+          participants,
+        },
+        history
+      )
+    );
   };
 
   const openOverlay = async (e: any) => {

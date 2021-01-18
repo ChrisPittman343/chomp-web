@@ -72,7 +72,26 @@ export interface ThreadAddedAction {
   };
 }
 
-type ThreadAction = ThreadLoadedAction | ThreadAddedAction;
+export interface ThreadResolvedAction {
+  type: "threads/threadResolved";
+  payload: {
+    threadId: string;
+    messageId: string;
+  };
+}
+
+export interface ThreadClosedAction {
+  type: "threads/threadClosed";
+  payload: {
+    threadId: string;
+  };
+}
+
+type ThreadAction =
+  | ThreadLoadedAction
+  | ThreadAddedAction
+  | ThreadResolvedAction
+  | ThreadClosedAction;
 //#endregion
 
 //#region Message Actions

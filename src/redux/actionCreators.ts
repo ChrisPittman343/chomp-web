@@ -1,6 +1,7 @@
 import { Message, Class, Thread } from "../types/firestoreTypes";
 import { HTTPSCourseInfo } from "../types/httpsTypes";
 import {
+  ClassAddedAction,
   ClassesFetchedAction,
   ClassesLoadedAction,
   ClassLoadedAction,
@@ -11,6 +12,15 @@ import {
 } from "../types/reduxTypes";
 
 //#region Classes Action Creators
+
+export const addClassCreator = (c: Class): ClassAddedAction => {
+  return {
+    type: "classes/classAdded",
+    payload: {
+      class: c,
+    },
+  };
+};
 
 export const loadClassesCreator = (classes: Class[]): ClassesLoadedAction => {
   return {

@@ -34,7 +34,7 @@ export default function threadsReducer(
 
 //THUNKS
 
-export const addNewThread = (thread: NewThreadInput) => {
+export const addNewThread = (thread: NewThreadInput, history: any) => {
   return async function addNewThreadThunk(
     dispatch: any,
     getState: () => RootState
@@ -42,7 +42,9 @@ export const addNewThread = (thread: NewThreadInput) => {
     createThreadFromFirestore(thread)
       .then((t) => {
         dispatch(addThreadCreator(t));
+        return t;
       })
+      .then((t) => history.push(`/class/c/${t.classId}/t/${t.id}`))
       .catch((err) => console.log(err));
   };
 };
@@ -52,7 +54,7 @@ export const loadThread = (classId: string, threadId: string) => {
     dispatch: any,
     getState: () => RootState
   ) {
-    fetchThreadFromFirestore(classId, threadId)
+    fetchThreadFromFirestore(threadId)
       .then(({ thread, messages }) => {
         dispatch(loadThreadCreator(thread, messages));
       })
