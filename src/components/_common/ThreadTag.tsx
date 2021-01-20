@@ -15,7 +15,7 @@ export const ThreadTag = (props: Props) => {
         borderRadius: 5,
         border: "1px solid var(--bright-red)",
         width: "fit-content",
-        padding: 5,
+        padding: 3,
       }}
     >
       {props.tag}

@@ -1,13 +1,13 @@
-import { Class, Message, Roster, Thread } from "./firestoreTypes";
+import { Class, Message, Roster, Thread, Votes } from "./firestoreTypes";
 import { HTTPSCourseInfo } from "./httpsTypes";
 
-export interface Store {
-  classes: Class[];
-  threads: Thread[];
-  messages: Message[];
-  rosters: Roster[];
-  googleClassroom: GoogleClassroom;
-}
+// export interface Store {
+//   classes: Class[];
+//   threads: Thread[];
+//   messages: Message[];
+//   rosters: Roster[];
+//   googleClassroom: GoogleClassroom;
+// }
 
 export interface GoogleClassroom {
   accessToken?: {
@@ -38,6 +38,7 @@ export interface ClassLoadedAction {
   payload: {
     class: Class;
     threads: Thread[];
+    threadVotes: Votes;
   };
 }
 
@@ -62,6 +63,7 @@ export interface ThreadLoadedAction {
   payload: {
     thread: Thread;
     messages: Message[];
+    messageVotes: Votes;
   };
 }
 
@@ -87,11 +89,20 @@ export interface ThreadClosedAction {
   };
 }
 
+export interface ThreadVotedAction {
+  type: "threads/threadVoted";
+  payload: {
+    thread: Thread;
+    finalValue: 1 | 0 | -1;
+  };
+}
+
 type ThreadAction =
   | ThreadLoadedAction
   | ThreadAddedAction
   | ThreadResolvedAction
-  | ThreadClosedAction;
+  | ThreadClosedAction
+  | ThreadVotedAction;
 //#endregion
 
 //#region Message Actions
@@ -103,7 +114,15 @@ export interface MessageAddedAction {
   };
 }
 
-type MessageAction = MessageAddedAction;
+export interface MessageVotedAction {
+  type: "messages/messageVoted";
+  payload: {
+    message: Message;
+    finalValue: 1 | 0 | -1;
+  };
+}
+
+type MessageAction = MessageAddedAction | MessageVotedAction;
 //#endregion
 
 //#region Roster Actions

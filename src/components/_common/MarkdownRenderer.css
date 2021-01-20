@@ -10,7 +10,7 @@
 
 .markdown-renderer pre {
   border-radius: 5px;
-  padding: 5px;
+  padding: 3px;
   background: var(--main-hover);
   border: 1px solid var(--main-press);
   max-width: 99%;

@@ -1,4 +1,4 @@
-import { Message, Class, Thread } from "../types/firestoreTypes";
+import { Message, Class, Thread, Votes } from "../types/firestoreTypes";
 import { HTTPSCourseInfo } from "../types/httpsTypes";
 import {
   ClassAddedAction,
@@ -6,9 +6,12 @@ import {
   ClassesLoadedAction,
   ClassLoadedAction,
   MessageAddedAction,
+  MessageVotedAction,
   OnlyClassLoadedAction,
   ThreadAddedAction,
   ThreadLoadedAction,
+  ThreadResolvedAction,
+  ThreadVotedAction,
 } from "../types/reduxTypes";
 
 //#region Classes Action Creators
@@ -31,11 +34,12 @@ export const loadClassesCreator = (classes: Class[]): ClassesLoadedAction => {
 
 export const loadClassCreator = (
   classData: Class,
-  threads: Thread[]
+  threads: Thread[],
+  threadVotes: Votes
 ): ClassLoadedAction => {
   return {
     type: "classes/classLoaded",
-    payload: { class: classData, threads },
+    payload: { class: classData, threads, threadVotes },
   };
 };
 
@@ -61,11 +65,32 @@ export const addThreadCreator = (thread: Thread): ThreadAddedAction => {
 
 export const loadThreadCreator = (
   thread: Thread,
-  messages: Message[]
+  messages: Message[],
+  messageVotes: Votes
 ): ThreadLoadedAction => {
   return {
     type: "threads/threadLoaded",
-    payload: { thread, messages },
+    payload: { thread, messages, messageVotes },
+  };
+};
+
+export const threadVoteCreator = (
+  thread: Thread,
+  finalValue: 1 | 0 | -1
+): ThreadVotedAction => {
+  return {
+    type: "threads/threadVoted",
+    payload: { thread, finalValue },
+  };
+};
+
+export const resolveThreadCreator = (
+  threadId: string,
+  messageId: string
+): ThreadResolvedAction => {
+  return {
+    type: "threads/threadResolved",
+    payload: { messageId, threadId },
   };
 };
 
@@ -77,6 +102,16 @@ export const addMessageCreator = (message: Message): MessageAddedAction => {
   return {
     type: "messages/messageAdded",
     payload: { message },
+  };
+};
+
+export const messageVoteCreator = (
+  message: Message,
+  finalValue: 1 | 0 | -1
+): MessageVotedAction => {
+  return {
+    type: "messages/messageVoted",
+    payload: { message, finalValue },
   };
 };
 

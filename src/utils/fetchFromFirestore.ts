@@ -1,12 +1,12 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
-import { Thread, Class, Message, Roster } from "../types/firestoreTypes";
+import { Thread, Class, Message, Roster, Votes } from "../types/firestoreTypes";
 import { NO_LOGIN, NULL_RESPONSE } from "../types/errors";
 
 /**
  * Returns basic info for all of a user's classes (From their profile).
- *0
+ *
  * Used primarily when a user goes to their dashboard.
  * @returns array of type Class
  */
@@ -25,6 +25,7 @@ export async function fetchClassesFromFirestore(): Promise<Class[]> {
         .classes.map((c: unknown) => c as Class);
     })
     .catch((err) => {
+      console.log("Classes fetch failure:", err);
       throw err;
     });
 }
@@ -38,6 +39,7 @@ export async function fetchClassFromFirestore(classId: string): Promise<Class> {
       return res.data() as Class;
     })
     .catch((err) => {
+      console.log("Class fetch failure:", err);
       throw err;
     });
 }
@@ -45,34 +47,40 @@ export async function fetchClassFromFirestore(classId: string): Promise<Class> {
 /**
  * Returns starting data when loading up a new class. (When you click on a class card)
  *
- * This includes a few of the most recent threads (Sorted by creation date).
+ * This includes a few of the most recent threads (Sorted by creation date), as well as their vote status.
  * @returns array of type Thread
  */
 export async function fetchClassDataFromFirestore(classId: string) {
   const db = firebase.firestore();
-  const classData = await fetchClassFromFirestore(classId)
-    .then((res) => res)
-    .catch((err) => {
-      throw err;
+  const currentUser = firebase.auth().currentUser;
+  try {
+    if (!currentUser || !currentUser.email) throw NO_LOGIN;
+    const classData = await fetchClassFromFirestore(classId);
+    const threads = (
+      await db
+        .collection("threads")
+        .where("classId", "==", classId)
+        .orderBy("created", "desc")
+        .limit(12)
+        .get()
+    ).docs.map((doc) => doc.data() as Thread);
+    threads.forEach((t) => {
+      t.classId = classId;
     });
-  const threadDocs = await db
-    .collection("threads")
-    .where("classId", "==", classId)
-    .orderBy("created", "desc")
-    .limit(12)
-    .get()
-    .then((res) => {
-      return res.empty ? [] : res.docs;
-    })
-    .catch((err) => {
-      throw err;
-    });
-  classData.id = classId;
-  const threads = threadDocs.map((doc) => doc.data() as Thread);
-  threads.forEach((t) => {
-    t.classId = classId;
-  });
-  return { class: classData, threads };
+    const threadVotes: Votes = await db
+      .collection("threadVotes")
+      .doc(`${classData.id}.${currentUser.uid}`)
+      .get()
+      .then((res) =>
+        res.exists
+          ? (res.data() as Votes)
+          : ({ email: currentUser.email, votes: [] } as Votes)
+      );
+    return { class: classData, threads, threadVotes };
+  } catch (e) {
+    console.log("Class load failure:", e);
+    throw e;
+  }
 }
 
 /**
@@ -81,66 +89,54 @@ export async function fetchClassDataFromFirestore(classId: string) {
  */
 export async function fetchThreadFromFirestore(
   threadId: string
-): Promise<{ thread: Thread; messages: Message[] }> {
+): Promise<{ thread: Thread; messages: Message[]; messageVotes: Votes }> {
   const db = firebase.firestore();
+  const currentUser = firebase.auth().currentUser;
+  try {
+    if (!currentUser || !currentUser.email) throw NO_LOGIN;
+    const thread = (
+      await db.collection("threads").doc(threadId).get()
+    ).data() as Thread;
 
-  const thread = await db
-    .collection("threads")
-    .doc(threadId)
-    .get()
-    .then((res) => {
-      return res.data() as Thread;
-    })
-    .catch((err) => {
-      throw err;
-    });
+    const messages = (
+      await db
+        .collection("messages")
+        .where("threadId", "==", threadId)
+        .orderBy("sent", "desc")
+        .limit(10)
+        .get()
+    ).docs.map((doc) => doc.data() as Message);
 
-  const messages = await db
-    .collection("messages")
-    .where("threadId", "==", threadId)
-    .orderBy("sent", "desc")
-    .limit(10)
-    .get()
-    .then((res) => {
-      return res.empty ? [] : res.docs.map((doc) => doc.data() as Message);
-    })
-    .catch((err) => {
-      throw err;
-    });
-  return { thread, messages };
+    const messageVotes: Votes = await db
+      .collection("messageVotes")
+      .doc(`${thread.id}.${currentUser.uid}`)
+      .get()
+      .then((res) =>
+        res.exists
+          ? (res.data() as Votes)
+          : ({ email: currentUser.email, votes: [] } as Votes)
+      );
+    return { thread, messages, messageVotes };
+  } catch (e) {
+    console.log("Thread load failure:", e);
+    throw e;
+  }
 }
 
 /**
  * Returns roster information for a class
  * @param id
- * @param isRosterId if true, the id will refer to a roster's id, else a class' id. Defaults to roster.
  */
 export async function fetchRosterFromFirestore(
-  id: string,
-  isRosterId = true
+  classId: string
 ): Promise<Roster> {
   const db = firebase.firestore();
-  const rosterId = isRosterId
-    ? id
-    : await db
-        .collection("classes")
-        .doc(id)
-        .get()
-        .then((res) => {
-          return res.get("roster");
-        })
-        .catch((err) => {
-          throw err;
-        });
-  return db
-    .collection("rosters")
-    .doc(rosterId)
-    .get()
-    .then((res) => {
-      //Might have to do some logic to parse data, but this is a good start
-      return res.data() as Roster;
-    })
-    .catch((err) => {
-      throw err;
-    });
+  try {
+    return ((
+      await db.collection("rosters").where("classId", "==", classId).get()
+    ).docs[0] as unknown) as Roster;
+  } catch (e) {
+    console.log("Thread load failure:", e);
+    throw e;
+  }
 }

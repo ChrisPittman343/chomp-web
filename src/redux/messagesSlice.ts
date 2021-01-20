@@ -5,7 +5,7 @@ import {
   NewMessageInput,
 } from "../utils/firestoreFunction";
 import { updateStateNoRepeats } from "../utils/updateStateNoRepeats";
-import { addMessageCreator, addThreadCreator } from "./actionCreators";
+import { addMessageCreator } from "./actionCreators";
 import { RootState } from "./reducer";
 
 const initialState: Message[] = [];

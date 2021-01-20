@@ -5,8 +5,13 @@ import {
   createThreadFromFirestore,
   NewThreadInput,
 } from "../utils/firestoreFunction";
+import { resolveFirestoreThread } from "../utils/updateFirestore";
 import { updateStateNoRepeats } from "../utils/updateStateNoRepeats";
-import { addThreadCreator, loadThreadCreator } from "./actionCreators";
+import {
+  addThreadCreator,
+  loadThreadCreator,
+  resolveThreadCreator,
+} from "./actionCreators";
 import { RootState } from "./reducer";
 
 const initialState: Thread[] = [];
@@ -25,6 +30,14 @@ export default function threadsReducer(
     }
     case "threads/threadLoaded": {
       return updateStateNoRepeats(state, [action.payload.thread]);
+    }
+    case "threads/threadResolved": {
+      console.log(action);
+      return state.map((t) =>
+        t.id === action.payload.threadId
+          ? { answerId: action.payload.messageId, ...t }
+          : t
+      );
     }
     default: {
       return state;
@@ -55,8 +68,18 @@ export const loadThread = (classId: string, threadId: string) => {
     getState: () => RootState
   ) {
     fetchThreadFromFirestore(threadId)
-      .then(({ thread, messages }) => {
-        dispatch(loadThreadCreator(thread, messages));
+      .then(({ thread, messages, messageVotes }) => {
+        dispatch(loadThreadCreator(thread, messages, messageVotes));
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const resolveThread = (threadId: string, messageId: string) => {
+  return async function (dispatch: any, getState: () => RootState) {
+    resolveFirestoreThread(threadId, messageId)
+      .then(({ messageId, threadId }) => {
+        dispatch(resolveThreadCreator(threadId, messageId));
       })
       .catch((err) => console.log(err));
   };

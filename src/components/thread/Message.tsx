@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import "./Message.css";
 import { MarkdownRenderer } from "../_common/MarkdownRenderer";
-import { getMessageById, getMessagesByMessage } from "../../redux/selectors";
-import { useSelector } from "react-redux";
+import {
+  getMessageById,
+  getMessagesByMessage,
+  getVoteOnMessage,
+} from "../../redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
 import { creationDateToString } from "../../utils/creationDateToString";
 import { ReplySection } from "./ReplySection";
-import { resolveThread } from "../../utils/updateFirestore";
+import { voteMessage } from "../../redux/votesSlice";
+import { resolveThread } from "../../redux/threadsSlice";
 
 interface Props {
   id: string;
@@ -22,11 +27,12 @@ export const Message = ({
   id,
   threadId,
 }: Props) => {
+  const dispatch = useDispatch();
   const [collapse, setCollapse] = useState(false);
   const [replying, setReplying] = useState(false);
-  const collapseState = collapse ? "collapsed" : "";
   const message = useSelector(getMessageById(id));
   const messages = useSelector(getMessagesByMessage(message));
+  const vote = useSelector(getVoteOnMessage(id));
   const isAnswer = answerId === message?.id;
   return message ? (
     <div className="message">
@@ -41,22 +47,34 @@ export const Message = ({
         }}
       />
       <div className="action-btns">
-        <span style={{ paddingRight: 3 }}>69</span>
-        <button id="upvote">▲</button>
-        <button id="downvote">▼</button>
+        <span style={{ paddingRight: 3 }}>{message.score}</span>
         <button
-          id="resolve"
-          className="bold"
-          onClick={() => resolveThread(threadId, id)}
+          onClick={() => dispatch(voteMessage(message, 1))}
           style={{
-            color: isAnswer ? "green" : "var(--main-color)",
+            color: vote === 1 ? "var(--blue)" : "",
+          }}
+        >
+          ▲
+        </button>
+        <button
+          onClick={() => dispatch(voteMessage(message, -1))}
+          style={{
+            color: vote === -1 ? "var(--bright-red)" : "",
+          }}
+        >
+          ▼
+        </button>
+        <button
+          className={active(isAnswer)}
+          onClick={() => dispatch(resolveThread(threadId, id))}
+          style={{
+            color: isAnswer ? "var(--green)" : "var(--main-color)",
           }}
         >
           ✔
         </button>
         {!replying ? (
           <button
-            id="reply"
             onClick={() => {
               setCollapse(false);
               setReplying(true);
@@ -69,7 +87,7 @@ export const Message = ({
         )}
       </div>
       {nestingLevel <= 10 && (replying || messages.length > 0) ? (
-        <div className={`replies-container ${collapseState}`}>
+        <div className={`replies-container ${collapse ? "collapsed" : ""}`}>
           <div
             className="nesting-bar-container"
             onClick={() => setCollapse(!collapse)}
@@ -107,3 +125,5 @@ export const Message = ({
     <></>
   );
 };
+
+const active = (b: boolean) => (b ? "active" : "");

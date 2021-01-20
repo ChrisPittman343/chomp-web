@@ -92,7 +92,9 @@ export const loadClass = (classId: string) => {
     getState: () => RootState
   ) {
     fetchClassDataFromFirestore(classId)
-      .then((d) => dispatch(loadClassCreator(d.class, d.threads)))
+      .then((d) =>
+        dispatch(loadClassCreator(d.class, d.threads, d.threadVotes))
+      )
       .catch((err) => console.log(err));
   };
 };

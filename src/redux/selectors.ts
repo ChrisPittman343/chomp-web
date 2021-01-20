@@ -1,6 +1,5 @@
 import { Message } from "../types/firestoreTypes";
 import { RootState } from "./reducer";
-import { store } from "./store";
 
 //#region Classes Selector
 
@@ -26,20 +25,29 @@ export const getThreadById = (id: string) => (store: RootState) =>
 export const getMessageById = (id: string) => (store: RootState) =>
   store.messages.find((m) => m.id === id);
 
-/**
- * @returns parent message of that ID ONLY (Can be a reply to another message)
- */
 export const getMessagesByParentId = (parentId: string) => (store: RootState) =>
   store.messages.filter((m) => m.parentId === parentId);
-/**
- * @returns parent message of that ID ONLY (Can be a reply to another message)
- */
+
 export const getMessagesByMessage = (message?: Message) => (store: RootState) =>
   store.messages.filter((m) => m.parentId === message?.id);
 
-export const isAnswer = (messageId: string, threadId: string) => (
+//#endregion
+
+//#region Votes Selector
+
+export const getVoteOnThread = (threadId: string) => (
   store: RootState
-) => store.threads.find((t) => t.id === threadId)?.answerId === messageId;
+): 1 | 0 | -1 => {
+  const vote = store.votes.threadVotes.find((v) => v.id === threadId);
+  return vote ? vote.value : 0;
+};
+
+export const getVoteOnMessage = (messageId: string) => (
+  store: RootState
+): 1 | 0 | -1 => {
+  const vote = store.votes.messageVotes.find((v) => v.id === messageId);
+  return vote ? vote.value : 0;
+};
 
 //#endregion
 

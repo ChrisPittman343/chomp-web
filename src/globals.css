@@ -40,3 +40,7 @@
   text-decoration: underline;
   font-weight: 400;
 }
+
+.active {
+  opacity: 1 !important;
+}

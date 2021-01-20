@@ -23,8 +23,6 @@ export interface Thread {
   answerId?: string;
   isClosed: boolean;
   score: number;
-  upvoters: string[];
-  downvoters: string[];
   created: firebase.firestore.Timestamp;
 }
 
@@ -38,9 +36,17 @@ export interface Message {
   email: string;
   message: string;
   score: number;
-  upvoters: string[];
-  downvoters: string[];
   sent: firebase.firestore.Timestamp;
+}
+
+export interface Votes {
+  email: string;
+  votes: Vote[];
+}
+
+export interface Vote {
+  id: string;
+  value: 1 | 0 | -1;
 }
 
 export interface Roster {
