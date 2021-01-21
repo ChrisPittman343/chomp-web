@@ -1,7 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getThreadById } from "../../redux/selectors";
+import { getThreadById, getVoteOnThread } from "../../redux/selectors";
+import { voteThread } from "../../redux/votesSlice";
 import { creationDateToString } from "../../utils/creationDateToString";
 import { ThreadTag } from "../_common/ThreadTag";
 import "./ThreadCard.css";
@@ -11,6 +12,8 @@ interface Props {
 }
 export const ThreadCard = (props: Props) => {
   const thread = useSelector(getThreadById(props.threadId));
+  const vote = useSelector(getVoteOnThread(props.threadId));
+  const dispatch = useDispatch();
   if (!thread) return <></>;
   else {
     const { answerId, isClosed } = thread;
@@ -39,6 +42,25 @@ export const ThreadCard = (props: Props) => {
             </span>
           </div>
           <div className="thread-main med-txt">
+            <div className="thread-score">
+              <button
+                onClick={() => dispatch(voteThread(thread, 1))}
+                style={{
+                  color: vote === 1 ? "var(--blue)" : "",
+                }}
+              >
+                ▲
+              </button>
+              <button>{thread.score}</button>
+              <button
+                onClick={() => dispatch(voteThread(thread, -1))}
+                style={{
+                  color: vote === -1 ? "var(--bright-red)" : "",
+                }}
+              >
+                ▼
+              </button>
+            </div>
             <div className="thread-title">
               {thread.title}
               {thread.tags?.map((t, tIx) => (

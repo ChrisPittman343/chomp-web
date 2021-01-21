@@ -23,6 +23,7 @@ export const ChompClass = (props: Props) => {
   const threads = useSelector(getThreads(classId));
   const currentClass = useSelector(getClassById(classId));
   useEffect(() => {
+    window.scrollTo({ top: 0 });
     dispatch(loadClass(classId));
   }, []);
   return currentClass ? (

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import firebase from "firebase";
 import "./GCSelectionOverlay.css";
-import { authedRequest } from "../../utils/authedRequest";
 import { Spinner } from "../_common/Spinner";
-import { HTTPSCourseInfo } from "../../types/httpsTypes";
+import { GCCourseInfo } from "../../types/firestoreTypes";
+import { fetchGoogleClassroom } from "../../utils/firestoreFunction";
 
 interface Props {
   hidden: boolean;
@@ -12,39 +12,39 @@ interface Props {
   setHidden: Function;
   updateFromClass: Function;
 }
-const arr: HTTPSCourseInfo[] = [];
+const arr: GCCourseInfo[] = [];
 export const GCSelectionOverlay = (props: Props) => {
   const { hidden, accessToken, setHidden, updateFromClass } = props;
   const [courseData, setCourseData] = useState(arr);
 
   useEffect(() => {
     if (!hidden && accessToken.length > 0) {
-      authedRequest("/get-classes", accessToken)
-        .then((value) => {
-          if (value.status === 200) {
-            //@ts-ignore
-            const cd = value.data as HTTPSCourseInfo[];
-            setCourseData(cd);
-          } else {
-            console.log(`ERROR: Something went wrong.`);
-            setCourseData(arr);
-            setHidden(true);
-          }
+      fetchGoogleClassroom(accessToken)
+        .then((data) => {
+          //Some kind of error must have occured
+          if (data.code) onFail();
+          const cd = data as GCCourseInfo[];
+          setCourseData(cd);
         })
-        .catch((err) => {
-          console.log(`ERROR: ${err}`);
-          setCourseData(arr);
-          setHidden(true);
+        .catch((e) => {
+          console.log(e);
+          onFail();
         });
     } else {
       setHidden(true);
     }
   }, [hidden]);
 
-  const selectClass = (e: any, c: HTTPSCourseInfo) => {
+  const selectClass = (e: any, c: GCCourseInfo) => {
     e.preventDefault();
     updateFromClass(c);
     setHidden(true);
+  };
+
+  const onFail = () => {
+    setCourseData(arr);
+    setHidden(true);
+    //Display some fail text telling the user that something went wrong, and to try again later.
   };
 
   return (

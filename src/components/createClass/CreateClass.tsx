@@ -7,9 +7,8 @@ import { FormField } from "./FormField";
 import { StudentsTable } from "./StudentsTable";
 import firebase from "firebase/app";
 import { reauthWithGoogle } from "../../utils/signInWithGoogle";
-import { HTTPSCourseInfo } from "../../types/httpsTypes";
+import { GCCourseInfo } from "../../types/firestoreTypes";
 import { GCSelectionOverlay } from "./GCSelectionOverlay";
-import { createClassFromFirestore } from "../../utils/firestoreFunction";
 import { useDispatch } from "react-redux";
 import { addClass } from "../../redux/classesSlice";
 
@@ -56,7 +55,7 @@ export const CreateClass = (props: Props) => {
     }
   };
 
-  const updateFromClass = (cd: HTTPSCourseInfo) => {
+  const updateFromClass = (cd: GCCourseInfo) => {
     setName(cd.course.name);
     setSection(cd.course.section);
     setDescription(cd.course.description);

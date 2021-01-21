@@ -1,5 +1,5 @@
 import { Class, Message, Roster, Thread, Votes } from "./firestoreTypes";
-import { HTTPSCourseInfo } from "./httpsTypes";
+import { GCCourseInfo } from "./firestoreTypes";
 
 // export interface Store {
 //   classes: Class[];
@@ -14,7 +14,7 @@ export interface GoogleClassroom {
     token: string;
     timeSaved: number;
   };
-  classes: HTTPSCourseInfo[];
+  classes: GCCourseInfo[];
 }
 
 //#region Class Actions
@@ -176,7 +176,7 @@ export interface TokenRecievedAction {
 export interface ClassesFetchedAction {
   type: "gc/classesFetched";
   payload: {
-    classes: HTTPSCourseInfo[];
+    classes: GCCourseInfo[];
   };
 }
 

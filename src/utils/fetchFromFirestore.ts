@@ -1,8 +1,6 @@
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
 import { Thread, Class, Message, Roster, Votes } from "../types/firestoreTypes";
 import { NO_LOGIN, NULL_RESPONSE } from "../types/errors";
+import { auth, db } from "../firebase";
 
 /**
  * Returns basic info for all of a user's classes (From their profile).
@@ -11,10 +9,9 @@ import { NO_LOGIN, NULL_RESPONSE } from "../types/errors";
  * @returns array of type Class
  */
 export async function fetchClassesFromFirestore(): Promise<Class[]> {
-  const user = firebase.auth().currentUser;
+  const user = auth.currentUser;
   if (!user) throw NO_LOGIN;
-  return firebase
-    .firestore()
+  return db
     .collection("users")
     .where("email", "==", user.email)
     .get()
@@ -31,7 +28,7 @@ export async function fetchClassesFromFirestore(): Promise<Class[]> {
 }
 
 export async function fetchClassFromFirestore(classId: string): Promise<Class> {
-  const classRef = firebase.firestore().collection("classes").doc(classId);
+  const classRef = db.collection("classes").doc(classId);
   return classRef
     .get()
     .then((res) => {
@@ -51,8 +48,7 @@ export async function fetchClassFromFirestore(classId: string): Promise<Class> {
  * @returns array of type Thread
  */
 export async function fetchClassDataFromFirestore(classId: string) {
-  const db = firebase.firestore();
-  const currentUser = firebase.auth().currentUser;
+  const currentUser = auth.currentUser;
   try {
     if (!currentUser || !currentUser.email) throw NO_LOGIN;
     const classData = await fetchClassFromFirestore(classId);
@@ -90,8 +86,7 @@ export async function fetchClassDataFromFirestore(classId: string) {
 export async function fetchThreadFromFirestore(
   threadId: string
 ): Promise<{ thread: Thread; messages: Message[]; messageVotes: Votes }> {
-  const db = firebase.firestore();
-  const currentUser = firebase.auth().currentUser;
+  const currentUser = auth.currentUser;
   try {
     if (!currentUser || !currentUser.email) throw NO_LOGIN;
     const thread = (
@@ -130,7 +125,6 @@ export async function fetchThreadFromFirestore(
 export async function fetchRosterFromFirestore(
   classId: string
 ): Promise<Roster> {
-  const db = firebase.firestore();
   try {
     return ((
       await db.collection("rosters").where("classId", "==", classId).get()

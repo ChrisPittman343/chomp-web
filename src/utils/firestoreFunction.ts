@@ -1,7 +1,7 @@
 import { Class, Message, Thread } from "../types/firestoreTypes";
 import firebase from "firebase/app";
-import "firebase/functions";
 import "firebase/firestore";
+import { functions } from "../firebase";
 
 export interface NewClassInput {
   name: string;
@@ -27,8 +27,7 @@ export interface NewMessageInput {
 export async function createClassFromFirestore(
   newClass: NewClassInput
 ): Promise<Class> {
-  return firebase
-    .functions()
+  return functions
     .httpsCallable("createClass")(newClass)
     .then((res) => res.data)
     .catch((err) => {
@@ -36,11 +35,24 @@ export async function createClassFromFirestore(
     });
 }
 
+export async function fetchGoogleClassroom(accessToken: string) {
+  return functions
+    .httpsCallable("fetchClassroomClasses")({
+      accessToken,
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("GC fetch failure:", err);
+      throw err;
+    });
+}
+
 export async function createThreadFromFirestore(
   newThread: NewThreadInput
 ): Promise<Thread> {
-  return firebase
-    .functions()
+  return functions
     .httpsCallable("createThread")(newThread)
     .then((res) => {
       return {
@@ -58,8 +70,7 @@ export async function createThreadFromFirestore(
 export async function createMessageFromFirestore(
   newMessage: NewMessageInput
 ): Promise<Message> {
-  return firebase
-    .functions()
+  return functions
     .httpsCallable("createMessage")(newMessage)
     .then((res) => {
       return {

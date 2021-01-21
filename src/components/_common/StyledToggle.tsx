@@ -1,7 +1,5 @@
 import React, { CSSProperties, useState } from "react";
 import "./StyledToggle.css";
-import edit from "../../images/editing_icon.svg";
-import markdown from "../../images/markdown_icon.svg";
 
 interface Props {
   title: string;

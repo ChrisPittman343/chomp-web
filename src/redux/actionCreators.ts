@@ -1,5 +1,5 @@
 import { Message, Class, Thread, Votes } from "../types/firestoreTypes";
-import { HTTPSCourseInfo } from "../types/httpsTypes";
+import { GCCourseInfo } from "../types/firestoreTypes";
 import {
   ClassAddedAction,
   ClassesFetchedAction,
@@ -124,7 +124,7 @@ export const messageVoteCreator = (
 //#region Google Classroom Action Creators
 
 export const classesFetched = (
-  classes: HTTPSCourseInfo[]
+  classes: GCCourseInfo[]
 ): ClassesFetchedAction => {
   return {
     type: "gc/classesFetched",

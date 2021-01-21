@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
+import { auth, db } from "../firebase";
 import { NO_LOGIN } from "../types/errors";
 import { Message, Thread, Votes } from "../types/firestoreTypes";
 
@@ -7,7 +8,6 @@ export async function resolveFirestoreThread(
   threadId: string,
   messageId: string
 ) {
-  const db = firebase.firestore();
   return db
     .collection("threads")
     .doc(threadId)
@@ -23,7 +23,6 @@ export async function resolveFirestoreThread(
 }
 
 export async function closeFirestoreThread(threadId: string) {
-  const db = firebase.firestore();
   return db
     .collection("threads")
     .doc(threadId)
@@ -66,8 +65,7 @@ async function voteOnItem<T extends { id: string }>(
   item: T,
   action: 1 | -1
 ): Promise<{ votedItem: T; finalValue: 1 | 0 | -1 }> {
-  const db = firebase.firestore();
-  const currentUser = firebase.auth().currentUser;
+  const currentUser = auth.currentUser;
   if (!currentUser || !currentUser.email) throw NO_LOGIN;
   const votesRef = db
     .collection(voteCollectionName)

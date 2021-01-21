@@ -58,6 +58,7 @@ const surround = (e: FI, surr: string, endWrap?: string) => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const handleEnter = (e: FI): FR => {
   console.log(e.selStart);
   let lines = e.val.split("\n");

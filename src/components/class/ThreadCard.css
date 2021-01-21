@@ -2,7 +2,7 @@
   background: var(--main-hover);
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   transition-property: background, border;
   transition-duration: 0.1s;
   transition-timing-function: ease-in;
@@ -49,6 +49,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  column-gap: 10px;
   padding: 5px 5px 0 0;
   font-weight: 500;
 }
@@ -56,4 +57,25 @@
 .thread-title {
   min-height: 32px;
   line-height: 1.45;
+}
+
+.thread-score {
+  width: 32px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.thread-score * {
+  font-size: 13px;
+  opacity: 0.65;
+}
+
+.thread-score:nth-child(2n + 0) {
+  transition: opacity 0.95s ease-in;
+  color: red;
+}
+.thread-score button:hover {
+  opacity: 1;
 }

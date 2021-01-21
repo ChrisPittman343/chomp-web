@@ -18,6 +18,7 @@ export const ChompThread = (props: Props) => {
   const dispatch = useDispatch();
   const thread = useSelector(getThreadById(threadId));
   useEffect(() => {
+    window.scrollTo({ top: 0 });
     dispatch(loadThread(classId, threadId));
   }, []);
   return thread ? (

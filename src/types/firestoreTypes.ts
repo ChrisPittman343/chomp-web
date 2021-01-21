@@ -58,3 +58,12 @@ export interface Roster {
     email: string;
   }[];
 }
+
+export interface GCCourseInfo {
+  course: {
+    name: string;
+    section: string;
+    description: string;
+  };
+  roster: string[];
+}
