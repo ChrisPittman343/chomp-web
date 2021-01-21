@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/functions";
-import { firebaseConfig } from "./constants";
 import { DarkModeContext, UserContext } from "./contexts";
 import { toggleColorScheme } from "./utils/toggleColorScheme";
 import { Landing } from "./components/landing/Landing";
@@ -17,17 +13,9 @@ import { CreateClass } from "./components/createClass/CreateClass";
 import { SolidBtn } from "./components/_common/buttons/SolidBtn";
 import { ChompThread } from "./components/thread/ChompThread";
 import { CreateThread } from "./components/createThread/CreateThread";
+import { auth, functions } from "./firebase";
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
-auth.onAuthStateChanged((user) => {
-  if (user) {
-    //Clear store, so people who log on after you have no chance of getting your data
-  } else {
-  }
-});
-firebase.functions().useEmulator("localhost", 5000);
+functions.useEmulator("localhost", 5000);
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
