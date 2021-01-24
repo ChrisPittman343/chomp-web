@@ -70,12 +70,21 @@
 .thread-score * {
   font-size: 13px;
   opacity: 0.65;
+  transition: opacity 0.15s ease-in;
 }
 
-.thread-score:nth-child(2n + 0) {
-  transition: opacity 0.95s ease-in;
-  color: red;
-}
 .thread-score button:hover {
   opacity: 1;
+}
+
+.vote-btn {
+  font-size: 20px;
+}
+
+.current-upvote {
+  color: var(--blue);
+}
+
+.current-downvote {
+  color: var(--red);
 }

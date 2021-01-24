@@ -14,6 +14,16 @@ export const ThreadCard = (props: Props) => {
   const thread = useSelector(getThreadById(props.threadId));
   const vote = useSelector(getVoteOnThread(props.threadId));
   const dispatch = useDispatch();
+
+  const onVote = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    vote: 1 | -1
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (thread) dispatch(voteThread(thread, vote));
+  };
+
   if (!thread) return <></>;
   else {
     const { answerId, isClosed } = thread;
@@ -25,14 +35,8 @@ export const ThreadCard = (props: Props) => {
         : isClosed && answerId
         ? "thread-closed-resolved"
         : "thread-open-unresolved";
-    /*
-    Open = Amber
-    Resolved + Open = Green
-    NOT Resolved + Closed = Red
-    Resolved + Closed = Nothing
-     */
     return (
-      <Link to={`/class/c/${thread.classId}/t/${thread.id}`}>
+      <a href={`/class/c/${thread.classId}/t/${thread.id}`}>
         <li className={`thread-card ${stateClass}`}>
           <div className="thread-head tiny-txt">
             <span className="sent-by">Created by {thread.email}</span>
@@ -44,19 +48,15 @@ export const ThreadCard = (props: Props) => {
           <div className="thread-main med-txt">
             <div className="thread-score">
               <button
-                onClick={() => dispatch(voteThread(thread, 1))}
-                style={{
-                  color: vote === 1 ? "var(--blue)" : "",
-                }}
+                onClick={(e) => onVote(e, 1)}
+                className={`vote-btn ${vote === 1 ? "current-upvote" : ""}`}
               >
                 ▲
               </button>
               <button>{thread.score}</button>
               <button
-                onClick={() => dispatch(voteThread(thread, -1))}
-                style={{
-                  color: vote === -1 ? "var(--bright-red)" : "",
-                }}
+                onClick={(e) => onVote(e, -1)}
+                className={`vote-btn ${vote === -1 ? "current-downvote" : ""}`}
               >
                 ▼
               </button>
@@ -69,7 +69,7 @@ export const ThreadCard = (props: Props) => {
             </div>
           </div>
         </li>
-      </Link>
+      </a>
     );
   }
 };

@@ -43,7 +43,7 @@ export const Message = ({
         text={message.message}
         style={{
           borderLeft: isAnswer ? `4px solid var(--green)` : "",
-          paddingLeft: isAnswer ? 5 : "",
+          paddingLeft: isAnswer ? 10 : "",
         }}
       />
       <div className="action-btns">

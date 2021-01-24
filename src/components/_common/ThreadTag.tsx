@@ -11,7 +11,7 @@ export const ThreadTag = (props: Props) => {
       style={{
         display: "inline-block",
         margin: "0 10px",
-        fontSize: 18,
+        fontSize: 16,
         borderRadius: 5,
         border: "1px solid var(--bright-red)",
         width: "fit-content",
