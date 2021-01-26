@@ -37,7 +37,7 @@ export default function votesReducer(
     case "threads/threadVoted": {
       const newVote: Vote = {
         id: action.payload.thread.id,
-        value: action.payload.finalValue,
+        value: action.payload.finalVote,
       };
       return {
         threadVotes: updateStateNoRepeats(state.threadVotes, [newVote]),
@@ -47,7 +47,7 @@ export default function votesReducer(
     case "messages/messageVoted": {
       const newVote: Vote = {
         id: action.payload.message.id,
-        value: action.payload.finalValue,
+        value: action.payload.finalVote,
       };
       return {
         threadVotes: [...state.threadVotes],
@@ -69,7 +69,7 @@ export const voteThread = (thread: Thread, action: 1 | -1) => {
   ) {
     voteOnThread(thread, action)
       .then((res) => {
-        dispatch(threadVoteCreator(res.votedItem, res.finalValue));
+        dispatch(threadVoteCreator(res.votedItem, res.finalVote, res.change));
       })
       .catch((err) => console.log(err));
   };
@@ -82,7 +82,7 @@ export const voteMessage = (message: Message, action: 1 | -1) => {
   ) {
     voteOnMessage(message, action)
       .then((res) => {
-        dispatch(messageVoteCreator(res.votedItem, res.finalValue));
+        dispatch(messageVoteCreator(res.votedItem, res.finalVote, res.change));
       })
       .catch((err) => console.log(err));
   };

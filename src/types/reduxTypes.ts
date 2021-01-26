@@ -93,7 +93,8 @@ export interface ThreadVotedAction {
   type: "threads/threadVoted";
   payload: {
     thread: Thread;
-    finalValue: 1 | 0 | -1;
+    finalVote: 1 | 0 | -1;
+    change: 2 | 1 | 0 | -1 | -2;
   };
 }
 
@@ -118,7 +119,8 @@ export interface MessageVotedAction {
   type: "messages/messageVoted";
   payload: {
     message: Message;
-    finalValue: 1 | 0 | -1;
+    finalVote: 1 | 0 | -1;
+    change: 2 | 1 | 0 | -1 | -2;
   };
 }
 

@@ -76,11 +76,14 @@ export const loadThreadCreator = (
 
 export const threadVoteCreator = (
   thread: Thread,
-  finalValue: 1 | 0 | -1
+  finalVote: 1 | 0 | -1,
+  change: 2 | 1 | 0 | -1 | -2
 ): ThreadVotedAction => {
+  console.log(change);
   return {
     type: "threads/threadVoted",
-    payload: { thread, finalValue },
+    //@ts-ignore
+    payload: { thread, finalVote, change },
   };
 };
 
@@ -107,11 +110,12 @@ export const addMessageCreator = (message: Message): MessageAddedAction => {
 
 export const messageVoteCreator = (
   message: Message,
-  finalValue: 1 | 0 | -1
+  finalVote: 1 | 0 | -1,
+  change: 2 | 1 | 0 | -1 | -2
 ): MessageVotedAction => {
   return {
     type: "messages/messageVoted",
-    payload: { message, finalValue },
+    payload: { message, finalVote, change },
   };
 };
 

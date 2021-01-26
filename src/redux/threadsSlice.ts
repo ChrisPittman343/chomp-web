@@ -32,12 +32,21 @@ export default function threadsReducer(
       return updateStateNoRepeats(state, [action.payload.thread]);
     }
     case "threads/threadResolved": {
-      console.log(action);
       return state.map((t) =>
         t.id === action.payload.threadId
           ? { answerId: action.payload.messageId, ...t }
           : t
       );
+    }
+    // Here, create an updated thread with the new score
+    // This will be pushed into the new state
+    case "threads/threadVoted": {
+      const oldThread = action.payload.thread;
+      const updatedThread = {
+        ...oldThread,
+        score: oldThread.score + action.payload.change,
+      } as Thread;
+      return updateStateNoRepeats(state, [updatedThread]);
     }
     default: {
       return state;

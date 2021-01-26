@@ -1,3 +1,4 @@
+import { threadId } from "worker_threads";
 import { Message } from "../types/firestoreTypes";
 import { ReduxAction } from "../types/reduxTypes";
 import {
@@ -21,6 +22,14 @@ export default function messagesReducer(
     }
     case "messages/messageAdded": {
       return updateStateNoRepeats(state, [action.payload.message]);
+    }
+    case "messages/messageVoted": {
+      const oldMessage = action.payload.message;
+      const updatedMessage = {
+        ...oldMessage,
+        score: oldMessage.score + action.payload.change,
+      } as Message;
+      return updateStateNoRepeats(state, [updatedMessage]);
     }
     default: {
       return state;
