@@ -1,6 +1,6 @@
 # Chomp
 
-## Chat for Google Classroom
+## A question answering platform where students ask and resolve each other's questions
 
 ### Why?
 
