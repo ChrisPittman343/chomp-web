@@ -5,6 +5,7 @@ import {
   ClassesFetchedAction,
   ClassesLoadedAction,
   ClassLoadedAction,
+  ErrorAction,
   MessageAddedAction,
   MessageVotedAction,
   OnlyClassLoadedAction,
@@ -14,7 +15,7 @@ import {
   ThreadVotedAction,
 } from "../types/reduxTypes";
 
-//#region Classes Action Creators
+//#region Classes
 
 export const addClassCreator = (c: Class): ClassAddedAction => {
   return {
@@ -54,7 +55,7 @@ export const loadOnlyClassCreator = (
 
 //#endregion
 
-//#region Threads Action Creators
+//#region Threads
 
 export const addThreadCreator = (thread: Thread): ThreadAddedAction => {
   return {
@@ -99,7 +100,7 @@ export const resolveThreadCreator = (
 
 //#endregion
 
-//#region Messages Action Creators
+//#region Messages
 
 export const addMessageCreator = (message: Message): MessageAddedAction => {
   return {
@@ -121,11 +122,11 @@ export const messageVoteCreator = (
 
 //#endregion
 
-//#region Rosters Action Creators
+//#region Rosters
 
 //#endregion
 
-//#region Google Classroom Action Creators
+//#region Google Classroom
 
 export const classesFetched = (
   classes: GCCourseInfo[]
@@ -135,5 +136,16 @@ export const classesFetched = (
     payload: { classes },
   };
 };
+
+//#endregion
+
+//#region Misc
+
+export const newErrorCreator = (err: any): ErrorAction => ({
+  type: "error/newError",
+  payload: {
+    error: err,
+  },
+});
 
 //#endregion

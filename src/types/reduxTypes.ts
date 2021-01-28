@@ -1,14 +1,6 @@
 import { Class, Message, Roster, Thread, Votes } from "./firestoreTypes";
 import { GCCourseInfo } from "./firestoreTypes";
 
-// export interface Store {
-//   classes: Class[];
-//   threads: Thread[];
-//   messages: Message[];
-//   rosters: Roster[];
-//   googleClassroom: GoogleClassroom;
-// }
-
 export interface GoogleClassroom {
   accessToken?: {
     token: string;
@@ -185,9 +177,16 @@ export interface ClassesFetchedAction {
 type GoogleClassroomAction = TokenRecievedAction | ClassesFetchedAction;
 //#endregion
 
+export interface ErrorAction {
+  type: "error/newError";
+  payload: {
+    error: any;
+  };
+}
 export type ReduxAction =
   | ClassAction
   | ThreadAction
   | MessageAction
   | RosterAction
-  | GoogleClassroomAction;
+  | GoogleClassroomAction
+  | ErrorAction;

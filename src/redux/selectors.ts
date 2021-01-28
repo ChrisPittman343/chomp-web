@@ -1,7 +1,7 @@
 import { Message } from "../types/firestoreTypes";
 import { RootState } from "./reducer";
 
-//#region Classes Selector
+//#region Classes
 
 export const getClasses = (store: RootState) => store.classes;
 
@@ -10,7 +10,7 @@ export const getClassById = (id: string) => (store: RootState) =>
 
 //#endregion
 
-//#region Threads Selector
+//#region Threads
 
 export const getThreads = (classId: string) => (store: RootState) =>
   store.threads.filter((t) => t.classId === classId);
@@ -20,7 +20,7 @@ export const getThreadById = (id: string) => (store: RootState) =>
 
 //#endregion
 
-//#region Messages Selector
+//#region Messages
 
 export const getMessageById = (id: string) => (store: RootState) =>
   store.messages.find((m) => m.id === id);
@@ -33,7 +33,7 @@ export const getMessagesByMessage = (message?: Message) => (store: RootState) =>
 
 //#endregion
 
-//#region Votes Selector
+//#region Votes
 
 export const getVoteOnThread = (threadId: string) => (
   store: RootState
@@ -51,14 +51,16 @@ export const getVoteOnMessage = (messageId: string) => (
 
 //#endregion
 
-//#region Rosters Selector
+//#region Rosters
 
 export const getRosters = (store: RootState) => store.rosters;
 
 //#endregion
 
-//#region Google Classroom Selector
+//#region Google Classroom
 
 export const getGoogleClassroom = (store: RootState) => store.googleClassroom;
 
 //#endregion
+
+export const getError = (store: RootState) => store.errors;

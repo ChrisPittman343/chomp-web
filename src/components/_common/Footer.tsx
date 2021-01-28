@@ -15,7 +15,7 @@ export const Footer = (props: Props) => {
           <a href="/">Privacy</a>
         </li>
         <li>
-          <a href="/">Github</a>
+          <a href="https://github.com/ChrisPittman343/chomp-web">Github</a>
         </li>
         <li>
           <a href="/">Contact</a>

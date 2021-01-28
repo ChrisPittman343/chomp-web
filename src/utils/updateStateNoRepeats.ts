@@ -9,6 +9,7 @@ export function updateStateNoRepeats<T extends TypeWithId>(
   });
   return (newState as unknown) as T[];
 }
+
 interface TypeWithId {
   id: string;
 }

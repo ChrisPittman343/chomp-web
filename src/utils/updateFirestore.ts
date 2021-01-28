@@ -118,7 +118,11 @@ async function getVotes(
 
 /**
  * Performs the necessary mutation on the old votes array, whether it be adding a vote, changing a vote, or removing a vote.
- * @returns a tuple of: Votes obj, FinalValue (Represents the value added to the initial score to achieve the desired vote). For example, if you have upvoted something and downvote, the return would be -2
+ * @returns a tuple of: Votes obj, finalVote, change
+ *
+ * finalVote: The end state of the voted item.
+ *
+ * change: Represents the value added to the initial score to achieve the desired vote. For example, if you have upvoted something and downvote, the return would be -2.
  */
 const mutateVotes = (
   oldVotes: Votes,
@@ -132,9 +136,9 @@ const mutateVotes = (
   // IF there is a vote with the SAME action value, delete it
   if (voteIx !== -1 && votes.votes[voteIx].value === action) {
     votes.votes.splice(voteIx, 1);
+    finalVote = 0;
     //@ts-ignore
     change = -1 * action; // Nullifies the existing vote, thus making it 0
-    finalVote = 0;
   }
   // ELIF there is a vote with a DIFFERENT action value, mutate it
   else if (voteIx !== -1 && votes.votes[voteIx].value !== action) {
