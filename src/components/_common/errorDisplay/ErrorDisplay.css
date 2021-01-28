@@ -1,0 +1,37 @@
+.error-display {
+  background: var(--orange);
+  position: fixed;
+  z-index: 20;
+  padding: 10px 35px 13px 10px;
+  border-radius: 5px;
+  bottom: -70px;
+  left: 25px;
+  line-height: 1.15;
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  column-gap: 15px;
+  align-items: center;
+  margin-right: 25px;
+  max-width: 420px;
+}
+
+.error-icon {
+  font-size: 30px;
+}
+
+.error-message {
+}
+
+.error-display.active {
+  transform: translateY(-95px);
+}
+
+.dismiss-btn {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  font-size: 18px;
+  font-weight: 1000;
+}

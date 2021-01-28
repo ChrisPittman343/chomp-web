@@ -14,6 +14,7 @@ import { SolidBtn } from "./components/_common/buttons/SolidBtn";
 import { ChompThread } from "./components/thread/ChompThread";
 import { CreateThread } from "./components/createThread/CreateThread";
 import { auth, functions } from "./firebase";
+import { ErrorDisplay } from "./components/_common/errorDisplay/ErrorDisplay";
 
 functions.useEmulator("localhost", 5000);
 
@@ -42,6 +43,7 @@ function App() {
             >
               Sign Out
             </SolidBtn>
+            <ErrorDisplay />
             <Switch>
               <Route exact path="/" children={<Landing />} />
               <ClassAuthRoute
